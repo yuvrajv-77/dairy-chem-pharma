@@ -9,104 +9,259 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as CompaniesRouteImport } from './routes/companies'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as clientIndexRouteImport } from './routes/(client)/index'
+import { Route as clientContactRouteImport } from './routes/(client)/contact'
+import { Route as clientAboutRouteImport } from './routes/(client)/about'
+import { Route as clientLayoutRouteImport } from './routes/(client)/_layout'
+import { Route as AdminSettingsIndexRouteImport } from './routes/admin/settings/index'
+import { Route as AdminProductsIndexRouteImport } from './routes/admin/products/index'
+import { Route as clientProductsIndexRouteImport } from './routes/(client)/products/index'
+import { Route as clientBlogsIndexRouteImport } from './routes/(client)/blogs/index'
+import { Route as clientProductsProductIdRouteImport } from './routes/(client)/products/$productId'
+import { Route as clientBlogsBlogIdRouteImport } from './routes/(client)/blogs/$blogId'
 
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const clientIndexRoute = clientIndexRouteImport.update({
+  id: '/(client)/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const clientContactRoute = clientContactRouteImport.update({
+  id: '/(client)/contact',
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CompaniesRoute = CompaniesRouteImport.update({
-  id: '/companies',
-  path: '/companies',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
+const clientAboutRoute = clientAboutRouteImport.update({
+  id: '/(client)/about',
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const clientLayoutRoute = clientLayoutRouteImport.update({
+  id: '/(client)/_layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSettingsIndexRoute = AdminSettingsIndexRouteImport.update({
+  id: '/admin/settings/',
+  path: '/admin/settings/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminProductsIndexRoute = AdminProductsIndexRouteImport.update({
+  id: '/admin/products/',
+  path: '/admin/products/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const clientProductsIndexRoute = clientProductsIndexRouteImport.update({
+  id: '/(client)/products/',
+  path: '/products/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const clientBlogsIndexRoute = clientBlogsIndexRouteImport.update({
+  id: '/(client)/blogs/',
+  path: '/blogs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const clientProductsProductIdRoute = clientProductsProductIdRouteImport.update({
+  id: '/(client)/products/$productId',
+  path: '/products/$productId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const clientBlogsBlogIdRoute = clientBlogsBlogIdRouteImport.update({
+  id: '/(client)/blogs/$blogId',
+  path: '/blogs/$blogId',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/companies': typeof CompaniesRoute
-  '/contact': typeof ContactRoute
+  '/about': typeof clientAboutRoute
+  '/contact': typeof clientContactRoute
+  '/': typeof clientIndexRoute
+  '/admin': typeof AdminIndexRoute
+  '/blogs/$blogId': typeof clientBlogsBlogIdRoute
+  '/products/$productId': typeof clientProductsProductIdRoute
+  '/blogs': typeof clientBlogsIndexRoute
+  '/products': typeof clientProductsIndexRoute
+  '/admin/products': typeof AdminProductsIndexRoute
+  '/admin/settings': typeof AdminSettingsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/companies': typeof CompaniesRoute
-  '/contact': typeof ContactRoute
+  '/about': typeof clientAboutRoute
+  '/contact': typeof clientContactRoute
+  '/': typeof clientIndexRoute
+  '/admin': typeof AdminIndexRoute
+  '/blogs/$blogId': typeof clientBlogsBlogIdRoute
+  '/products/$productId': typeof clientProductsProductIdRoute
+  '/blogs': typeof clientBlogsIndexRoute
+  '/products': typeof clientProductsIndexRoute
+  '/admin/products': typeof AdminProductsIndexRoute
+  '/admin/settings': typeof AdminSettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/companies': typeof CompaniesRoute
-  '/contact': typeof ContactRoute
+  '/(client)/_layout': typeof clientLayoutRoute
+  '/(client)/about': typeof clientAboutRoute
+  '/(client)/contact': typeof clientContactRoute
+  '/(client)/': typeof clientIndexRoute
+  '/admin/': typeof AdminIndexRoute
+  '/(client)/blogs/$blogId': typeof clientBlogsBlogIdRoute
+  '/(client)/products/$productId': typeof clientProductsProductIdRoute
+  '/(client)/blogs/': typeof clientBlogsIndexRoute
+  '/(client)/products/': typeof clientProductsIndexRoute
+  '/admin/products/': typeof AdminProductsIndexRoute
+  '/admin/settings/': typeof AdminSettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/companies' | '/contact'
+  fullPaths:
+    | '/about'
+    | '/contact'
+    | '/'
+    | '/admin'
+    | '/blogs/$blogId'
+    | '/products/$productId'
+    | '/blogs'
+    | '/products'
+    | '/admin/products'
+    | '/admin/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/companies' | '/contact'
-  id: '__root__' | '/' | '/about' | '/companies' | '/contact'
+  to:
+    | '/about'
+    | '/contact'
+    | '/'
+    | '/admin'
+    | '/blogs/$blogId'
+    | '/products/$productId'
+    | '/blogs'
+    | '/products'
+    | '/admin/products'
+    | '/admin/settings'
+  id:
+    | '__root__'
+    | '/(client)/_layout'
+    | '/(client)/about'
+    | '/(client)/contact'
+    | '/(client)/'
+    | '/admin/'
+    | '/(client)/blogs/$blogId'
+    | '/(client)/products/$productId'
+    | '/(client)/blogs/'
+    | '/(client)/products/'
+    | '/admin/products/'
+    | '/admin/settings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  CompaniesRoute: typeof CompaniesRoute
-  ContactRoute: typeof ContactRoute
+  clientLayoutRoute: typeof clientLayoutRoute
+  clientAboutRoute: typeof clientAboutRoute
+  clientContactRoute: typeof clientContactRoute
+  clientIndexRoute: typeof clientIndexRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  clientBlogsBlogIdRoute: typeof clientBlogsBlogIdRoute
+  clientProductsProductIdRoute: typeof clientProductsProductIdRoute
+  clientBlogsIndexRoute: typeof clientBlogsIndexRoute
+  clientProductsIndexRoute: typeof clientProductsIndexRoute
+  AdminProductsIndexRoute: typeof AdminProductsIndexRoute
+  AdminSettingsIndexRoute: typeof AdminSettingsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/companies': {
-      id: '/companies'
-      path: '/companies'
-      fullPath: '/companies'
-      preLoaderRoute: typeof CompaniesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
+    '/(client)/': {
+      id: '/(client)/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof clientIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(client)/contact': {
+      id: '/(client)/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof clientContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(client)/about': {
+      id: '/(client)/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof clientAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(client)/_layout': {
+      id: '/(client)/_layout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof clientLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/settings/': {
+      id: '/admin/settings/'
+      path: '/admin/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/products/': {
+      id: '/admin/products/'
+      path: '/admin/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminProductsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(client)/products/': {
+      id: '/(client)/products/'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof clientProductsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(client)/blogs/': {
+      id: '/(client)/blogs/'
+      path: '/blogs'
+      fullPath: '/blogs'
+      preLoaderRoute: typeof clientBlogsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(client)/products/$productId': {
+      id: '/(client)/products/$productId'
+      path: '/products/$productId'
+      fullPath: '/products/$productId'
+      preLoaderRoute: typeof clientProductsProductIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(client)/blogs/$blogId': {
+      id: '/(client)/blogs/$blogId'
+      path: '/blogs/$blogId'
+      fullPath: '/blogs/$blogId'
+      preLoaderRoute: typeof clientBlogsBlogIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  CompaniesRoute: CompaniesRoute,
-  ContactRoute: ContactRoute,
+  clientLayoutRoute: clientLayoutRoute,
+  clientAboutRoute: clientAboutRoute,
+  clientContactRoute: clientContactRoute,
+  clientIndexRoute: clientIndexRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  clientBlogsBlogIdRoute: clientBlogsBlogIdRoute,
+  clientProductsProductIdRoute: clientProductsProductIdRoute,
+  clientBlogsIndexRoute: clientBlogsIndexRoute,
+  clientProductsIndexRoute: clientProductsIndexRoute,
+  AdminProductsIndexRoute: AdminProductsIndexRoute,
+  AdminSettingsIndexRoute: AdminSettingsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

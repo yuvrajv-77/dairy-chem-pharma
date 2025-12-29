@@ -1,0 +1,15 @@
+import { createFileRoute } from '@tanstack/react-router'
+import React from 'react'
+
+export const Route = createFileRoute('/products/')({
+    component: ProductsIndexPage,
+})
+
+
+function ProductsIndexPage() {
+  return (
+    <div>ProductsIndexPage</div>
+  )
+}
+
+

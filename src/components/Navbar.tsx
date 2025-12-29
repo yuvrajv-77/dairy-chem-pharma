@@ -1,30 +1,36 @@
 import React from 'react'
-import { CheckSquare, CheckSquare2, Mail, Menu, Search, X } from 'lucide-react'
+import {  CheckSquare2, Mail, Menu, Phone, PhoneCall, Search, X } from 'lucide-react'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { Button } from './ui/button'
+import { Input } from './ui/input'
 import { motion, AnimatePresence } from "motion/react";
-import  dairychem from '../data/dairychem.json';
+import dairychem from '../data/dairychem.json';
 import logo from '../assets/logo.jpeg'
 import {
     NavigationMenu,
     NavigationMenuContent,
-    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
-    NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion'
 
+const categories = [
+    'Capsule',
+    'Granulation',
+    'Injectibles',
+    'Liquid',
+    'Ointment',
+]
 
 const Navbar = () => {
     const navigate = useNavigate();
 
     const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false)
     return (
-        <header className='bg-white border-b border-gray-800 z-40'>
+        <header className='bg-white  border-gray-800 z-40'>
             <div className=' '>
 
                 {/* <div className='bg-primary py-2 md:py-1 px-4 md:px-10 lg:px-0'>
@@ -46,18 +52,22 @@ const Navbar = () => {
                 </div> */}
 
                 {/* brand */}
-                <div className='px-3 lg:px-0 my-5  lg:max-w-6xl mx-auto flex md:flex-row flex-col items-center  justify-between '>
+                <div className='px-3 lg:px-0 my-3  lg:max-w-6xl mx-auto flex md:flex-row flex-col items-center  justify-between '>
                     <div className='flex  w-full lg:w-auto items-center justify- gap-2' >
                         <Button size={'icon'} className='bg-primary lg:hidden text-white ' type='button' onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}>
                             <Menu size={23} />
                         </Button>
                         <Link to={"/"} className='flex items-center gap-2'>
-                            <span className=' brightness-140 border-primary p-1'>
+                            <span className='  border-primary p-1'>
                                 <img src={logo} className='size-14' alt="" />
                             </span>
                             <span>
                                 <h1 className='text-lg md:text-2xl font-black text-primary'>DairyChem Pharma Machineries</h1>
-                                <p className='text-[9px] font-semibold md:text-xs'>Manufacturers, Suppliers, and Exporters of all Types of Machinery to Set up a Plant</p>
+                                <span className='flex gap-2'>
+                                    <p className='text-[9px] font-semibold md:text-xs'>Mira Road, Surat, Gujarat - 402125 </p>
+                                    <p className='text-[9px] font-semibold md:text-xs'>|</p> 
+                                    <p className='text-[9px] flex gap-1 font-semibold md:text-xs'>GSTIN: <p className='font-bold'>27AAGCS0001Q1ZJ </p></p>
+                                </span>
                             </span>
                         </Link>
 
@@ -114,19 +124,26 @@ const Navbar = () => {
                                     >
                                         About
                                     </Link>
-                                    <Link
+                                    {/* <Link
                                         to={'/companies'}
                                         className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
                                         onClick={() => setIsMobileNavOpen(false)}
                                     >
                                         Companies
+                                    </Link> */}
+                                    <Link
+                                        to={'/blogs'}
+                                        className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
+                                        onClick={() => setIsMobileNavOpen(false)}
+                                    >
+                                        Blogs
                                     </Link>
 
                                     <Accordion type="single" className='' collapsible>
                                         <AccordionItem value="item-1">
                                             <AccordionTrigger className="text-white focus:bg-violet-400 font-semibold py-2 text-base px-2 rounded hover:bg-violet-400">Laboratory Chemicals</AccordionTrigger>
                                             <AccordionContent className='bg-violet-500 p-4 text-primary flex flex-col gap-2 rounded-b-lg'>
-                                                <Link
+                                                {/* <Link
                                                     to={'/chemicals'}
                                                     className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
                                                     onClick={() => setIsMobileNavOpen(false)}
@@ -139,7 +156,7 @@ const Navbar = () => {
                                                     onClick={() => setIsMobileNavOpen(false)}
                                                 >
                                                     By Category
-                                                </Link>
+                                                </Link> */}
                                             </AccordionContent>
                                         </AccordionItem>
                                     </Accordion>
@@ -151,13 +168,13 @@ const Navbar = () => {
                                     >
                                         Events
                                     </Link> */}
-                                    <Link
+                                    {/* <Link
                                         to={'/gallery'}
                                         className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
                                         onClick={() => setIsMobileNavOpen(false)}
                                     >
                                         Gallery
-                                    </Link>
+                                    </Link> */}
                                     <Link
                                         to={'/contact'}
                                         className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
@@ -171,22 +188,18 @@ const Navbar = () => {
                         )}
                     </AnimatePresence>
 
-                    {/* <div className='flex mx-auto md:mx-0 item-center md:gap-10 md:mt-0 mt-5 gap-4 text-[8px] md:text-base'>
+                    <div className='flex mx-auto md:mx-0 item-center md:gap-10 md:mt-0 mt-5 gap-4 text-[8px] md:text-base'>
+
                         <span className='flex flex-col items-start md:items-end font-semibold'>
                             <p className='flex items-center gap-1'><CheckSquare2 size={20} /> Certified</p>
-                            <p>ISO 9001:2008 + more</p>
-                        </span>
-                        <span className='flex flex-col items-start md:items-end font-semibold'>
-                            <p className='flex items-center gap-1'><CheckSquare2 size={20} /> The Best</p>
-                            <p>Quality Control</p>
-                        </span>
-                        <span className='flex flex-col items-start md:items-end font-semibold'>
-                            <p className='flex items-center gap-1'><CheckSquare2 size={20} /> Certified</p>
-                            <p>ISO 9001:2008 + more</p>
+                            <p>Certificate Name</p>
                         </span>
 
+                        <Button size={'lg'}><PhoneCall size={20} /> +234 1 234 5678</Button>
+                        <Button size={'lg'}>Enquire Now</Button>
 
-                    </div> */}
+
+                    </div>
                 </div>
 
 
@@ -209,54 +222,60 @@ const Navbar = () => {
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
 
-                                <NavigationMenuItem>
-                                    <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                                        <Link to="/companies">Companies</Link>
-                                    </NavigationMenuLink>
-                                </NavigationMenuItem>
+                                
 
                                 <NavigationMenuItem>
-                                    <NavigationMenuTrigger>Laboratory Chemicals</NavigationMenuTrigger>
-                                    <NavigationMenuContent className='  '>
-                                        <ul className=' p-1 font-bold  w-64 text-sm'>
-                                            <li>
+                                    <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+                                    <NavigationMenuContent className='z-10'>
+                                        <ul className='grid w-[300px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]'>
+                                            <li className="row-span-3">
                                                 <NavigationMenuLink asChild>
-                                                    <Link to="/chemicals">All Chemicals</Link>
+                                                    <Link
+                                                        to="/products"
+                                                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md bg-gray-50"
+                                                    >
+                                                        <div className="mb-2 mt-4 text-lg font-medium">
+                                                            All Products
+                                                        </div>
+                                                        <p className="text-sm leading-tight text-muted-foreground">
+                                                            Browse our complete catalog of pharmaceutical machinery.
+                                                        </p>
+                                                    </Link>
                                                 </NavigationMenuLink>
                                             </li>
-                                            <li>
-                                                <NavigationMenuLink asChild>
-                                                    <Link to="/categories">Browse By Category</Link>
-                                                </NavigationMenuLink>
+                                            <li className="col-span-1">
+                                                <div className="mb-2 px-2 text-lg font-medium">Categories</div>
+                                                <div className="grid grid-cols-1 gap-1">
+                                                    {categories.map((category) => (
+                                                        <NavigationMenuLink asChild key={category}>
+                                                            <Link
+                                                                to="/products"
+                                                                search={{ filter: category }}
+                                                                className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                                            >
+                                                                <div className="text-sm font-medium leading-none">{category}</div>
+                                                            </Link>
+                                                        </NavigationMenuLink>
+                                                    ))}
+                                                </div>
                                             </li>
-                                            
                                         </ul>
                                     </NavigationMenuContent>
                                 </NavigationMenuItem>
 
-                                <NavigationMenuItem>
-                                    <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                                        <Link to="/downloads">Downloads</Link>
-                                    </NavigationMenuLink>
-                                </NavigationMenuItem>
+
 
                                 <NavigationMenuItem>
                                     <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                                        <Link to="/coa">COA</Link>
+                                        <Link to="/blogs">Blogs</Link>
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
 
                                 {/* <NavigationMenuItem>
                                     <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                                        <Link to="/events">Events</Link>
+                                        <Link to="/gallery">Policies</Link>
                                     </NavigationMenuLink>
                                 </NavigationMenuItem> */}
-
-                                <NavigationMenuItem>
-                                    <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                                        <Link to="/gallery">Gallery</Link>
-                                    </NavigationMenuLink>
-                                </NavigationMenuItem>
 
                                 <NavigationMenuItem>
                                     <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
@@ -268,6 +287,10 @@ const Navbar = () => {
                             </NavigationMenuList>
                         </NavigationMenu>
 
+                        <div className='relative w-50 md:w-70'>
+                            <Search className='absolute left-2 top-1/2 -translate-y-1/2 text-white/80' size={15} />
+                            <Input className='w-full pl-8 h-8 text-xs md:text-base bg-transparent border-white/60 text-white placeholder:text-white/80 rounded-lg' placeholder="Search 30+ Products" />
+                        </div>
                         {/* <Link to="/chemicals" className='text-white p-2 hover:bg-white rounded-lg hover:text-black cursor-pointer'><Search size={20} /></Link> */}
                     </div>
                 </nav>
