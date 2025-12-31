@@ -222,8 +222,6 @@ const Navbar = () => {
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
 
-                                
-
                                 <NavigationMenuItem>
                                     <NavigationMenuTrigger>Products</NavigationMenuTrigger>
                                     <NavigationMenuContent className='z-10'>
@@ -264,8 +262,6 @@ const Navbar = () => {
                                     </NavigationMenuContent>
                                 </NavigationMenuItem>
 
-
-
                                 <NavigationMenuItem>
                                     <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                                         <Link to="/blogs" params={{}}>Blogs</Link>
@@ -281,6 +277,12 @@ const Navbar = () => {
                                 <NavigationMenuItem>
                                     <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                                         <Link to="/contact">Contact</Link>
+                                    </NavigationMenuLink>
+                                </NavigationMenuItem>
+
+                                <NavigationMenuItem>
+                                    <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                                        <Link to="/admin">admin</Link>
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
 
