@@ -7,12 +7,12 @@ export const Route = createRootRoute({
 })
 
 function RootComponent() {
-  // const location = useLocation()
-  // const isAdmin = location.pathname.startsWith('/admin')
+  const location = useLocation()
+  const isAdmin = location.pathname.startsWith('/admin')
 
   return (
     <>
-      {/* {!isAdmin && <Navbar />} */}
+      {!isAdmin && <Navbar />}
       <Outlet />
       <TanStackRouterDevtools />
     </>

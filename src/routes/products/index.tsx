@@ -2,7 +2,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Button } from '@/components/ui/button'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/(client)/products/')({
+export const Route = createFileRoute('/products/')({
     component: ProductsIndexPage,
     /**
      * Validate search query and return a validated search object.

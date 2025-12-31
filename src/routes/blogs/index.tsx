@@ -4,7 +4,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Button } from '@/components/ui/button'
 import { CalendarRange } from 'lucide-react'
 
-export const Route = createFileRoute('/(client)/blogs/')({
+export const Route = createFileRoute('/blogs/')({
     component: Blogs,
 })
 

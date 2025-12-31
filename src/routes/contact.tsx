@@ -23,7 +23,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 
-export const Route = createFileRoute('/(client)/contact')({
+export const Route = createFileRoute('/contact')({
   component: Contact,
 })
 
@@ -46,9 +46,9 @@ function Contact() {
       company: "",
       message: "",
     },
-    validators: {
-      onSubmit: formSchema,
-    },
+    // validators: {
+    //   onSubmit: formSchema,
+    // },
     onSubmit: async ({ value }) => {
       console.log(value)
       toast("Message sent!", {

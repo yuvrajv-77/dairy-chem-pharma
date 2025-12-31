@@ -88,7 +88,7 @@ const Navbar = () => {
                                         <span className='border border-primary p-1'>
                                             <img src="/Brand Logo.png" className='size-10 rounded-sm' alt="" />
                                         </span>
-                                        <h1 className='text-lg font-extrabold text-white'>LABPRO CHEM</h1>
+                                        <h1 className='text-lg font-extrabold text-white'>DairyChem Pharma Machineries</h1>
                                     </div>
                                     <Button
                                         size="icon"
@@ -232,6 +232,7 @@ const Navbar = () => {
                                                 <NavigationMenuLink asChild>
                                                     <Link
                                                         to="/products"
+                                                        search={{ filter: '' }}  // Added required search prop with empty string for no filter
                                                         className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md bg-gray-50"
                                                     >
                                                         <div className="mb-2 mt-4 text-lg font-medium">
@@ -267,7 +268,7 @@ const Navbar = () => {
 
                                 <NavigationMenuItem>
                                     <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                                        <Link to="/blogs">Blogs</Link>
+                                        <Link to="/blogs" params={{}}>Blogs</Link>
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
 

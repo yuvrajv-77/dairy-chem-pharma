@@ -5,7 +5,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { motion } from 'motion/react'
 
-export const Route = createFileRoute('/(client)/')({
+export const Route = createFileRoute('/')({
   component: Home,
 })
 
