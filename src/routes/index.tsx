@@ -14,12 +14,11 @@ const images = [
   // "/ui_images/footer.png",
   "/ui_images/grid-chem.jpg",
   "/ui_images/bannermin1.jpg",
-  "/ui_images/hero.jpg",
+  // "/ui_images/hero.jpg",
 ];
 
 const herolines = [
   "HEAVY MACHINERY SOLUTIONS FOR EVERY INDUSTRY",
-
 ]
 // const herolines = [
 //   "HEAVY MACHINERY SOLUTIONS FOR EVERY INDUSTRY",
