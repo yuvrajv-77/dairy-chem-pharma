@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
-import { Plus, Search, Pencil, Trash2, Filter } from 'lucide-react'
+import { Plus, Search, Pencil, Trash2, Filter, X } from 'lucide-react'
 import {
   Table,
   TableBody,
@@ -24,7 +24,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { getProducts } from '@/services/productsServices'
+import { getProducts, deleteProduct } from '@/services/productsServices'
+import { toast } from 'sonner'
 
 export const Route = createFileRoute('/admin/_admin/products/')({
   component: AdminProducts,
@@ -54,6 +55,7 @@ function AdminProducts() {
           status: item.status || 'Active'
         })) as Product[]
         setLocalProducts(formattedProducts)
+        console.log('Fetched products:', formattedProducts)
       } catch (error) {
         console.error('Failed to fetch products:', error)
       }
@@ -72,46 +74,65 @@ function AdminProducts() {
     })
     .sort((a, b) => (sortAlphabetical ? a.name.localeCompare(b.name) : 0))
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
-      setLocalProducts((prev) => prev.filter((p) => p.code !== id))
+      try {
+        await deleteProduct(id)
+        setLocalProducts((prev) => prev.filter((p) => p.id !== id))
+        toast.success('Product deleted successfully')
+      } catch (error) {
+        console.error('Failed to delete product:', error)
+        toast.error('Failed to delete product')
+      }
     }
   }
 
+  const clearFilters = () => {
+    setSearchQuery('')
+    setSortAlphabetical(false)
+    setSelectedCategories([])
+  }
+
   return (
-    <div className="flex-1 p-6 max-w-7xl mx-auto space-y-6 border">
+    <div className="flex-1 p-6 max-w-7xl mx-auto space-y-6 ">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Products</h1>
         </div>
       </div>
 
-      <div className='flex items-center justify-between'>
-        <div className='relative w-50 md:w-70'>
-          <Search className='absolute left-2 top-1/2 -translate-y-1/2 ' size={15} />
+      <div className='flex flex-col md:flex-row items-start md:items-center justify-between gap-4'>
+        <div className='relative w-full md:w-72'>
+          <Search className='absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground' size={15} />
           <Input
-            className='w-full pl-8 h-8 text-xs md:text-base bg-transparent  rounded-lg'
+            className='w-full pl-8 h-9'
             placeholder="Search Products..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center space-x-2">
+        <div className="flex w-full md:w-auto items-center justify-between md:justify-end gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <div className="flex items-center space-x-2">
             <Switch
               id="sort-mode"
               checked={sortAlphabetical}
               onCheckedChange={setSortAlphabetical}
             />
-            <Label htmlFor="sort-mode">Sort A-Z</Label>
+            <Label htmlFor="sort-mode" className="whitespace-nowrap text-sm">Sort A-Z</Label>
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="h-8 gap-1">
+              <Button variant="outline" size="sm" className="h-9 gap-1">
                 <Filter className="h-3.5 w-3.5" />
                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                   Filter
                 </span>
+                {selectedCategories.length > 0 && (
+                  <span className="ml-1 rounded-full bg-primary w-4 h-4 text-[10px] flex items-center justify-center text-primary-foreground">
+                    {selectedCategories.length}
+                  </span>
+                )}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -137,10 +158,39 @@ function AdminProducts() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <Button onClick={() => navigate({ to: "/admin/products/$productId", params: { productId: "new" } })}>
+        <Button className="h-9" onClick={() => navigate({ to: "/admin/products/$productId", params: { productId: "new" } })}>
           <Plus className="mr-2 h-4 w-4" /> Add Product
         </Button>
+        </div>
+       
       </div>
+
+      {/* Active Filters Display */}
+      {(selectedCategories.length > 0 || searchQuery || sortAlphabetical) && (
+        <div className="flex flex-wrap items-center gap-2">
+          {searchQuery && (
+            <Button variant="secondary" size="sm" className="h-7 text-xs gap-1" onClick={() => setSearchQuery('')}>
+              Search: {searchQuery}
+              <X className="h-3 w-3" />
+            </Button>
+          )}
+          {sortAlphabetical && (
+            <Button variant="secondary" size="sm" className="h-7 text-xs gap-1" onClick={() => setSortAlphabetical(false)}>
+              Sorted: A-Z
+              <X className="h-3 w-3" />
+            </Button>
+          )}
+          {selectedCategories.map((cat) => (
+            <Button key={cat} variant="secondary" size="sm" className="h-7 text-xs gap-1" onClick={() => setSelectedCategories(prev => prev.filter(c => c !== cat))}>
+              {cat}
+              <X className="h-3 w-3" />
+            </Button>
+          ))}
+          <Button variant="ghost" size="sm" className="h-7 text-xs text-muted-foreground hover:text-foreground" onClick={clearFilters}>
+            Clear all
+          </Button>
+        </div>
+      )}
 
       <div className="border rounded-lg overflow-hidden bg-card">
         <div className="overflow-x-auto p-4">
@@ -159,9 +209,9 @@ function AdminProducts() {
                 <TableRow key={product.code}>
                   <TableCell>
                     <img
-                      src={product.imageUrl}
+                      src={product.imageUrl || 'https://via.placeholder.co/100'}
                       alt={product.name}
-                      className="h-15 w-15 rounded-md object-cover bg-muted border"
+                      className="h-15 w-15 lowercase rounded-md object-cover bg-muted border"
                     />
                   </TableCell>
                   <TableCell className="">
@@ -178,7 +228,7 @@ function AdminProducts() {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
+                      <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => navigate({ to: "/admin/products/$productId", params: { productId: product.id || product.code } })}>
                         <Pencil className="h-4 w-4" />
                         <span className="sr-only">Edit</span>
                       </Button>
@@ -186,7 +236,7 @@ function AdminProducts() {
                         variant="ghost"
                         size="icon"
                         className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
-                        onClick={() => handleDelete(product.code)}
+                        onClick={() => product.id && handleDelete(product.id)}
                       >
                         <Trash2 className="h-4 w-4" />
                         <span className="sr-only">Delete</span>

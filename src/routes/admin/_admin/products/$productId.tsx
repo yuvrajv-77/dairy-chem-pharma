@@ -22,8 +22,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { ArrowLeft, Plus, Trash2, Save, Upload } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import type { Product, Category } from '@/types/product'
-import { addProduct } from '@/services/productsServices'
+import { addProduct, getProductById, updateProduct } from '@/services/productsServices'
+import { toast } from 'sonner'
 
+// Define the route for this page. The '$productId' part is a dynamic parameter.
+// It means this component handles URLs like /admin/products/new or /admin/products/123
 export const Route = createFileRoute('/admin/_admin/products/$productId')({
   component: AdminProductDetail,
 })
@@ -31,7 +34,8 @@ export const Route = createFileRoute('/admin/_admin/products/$productId')({
 // Categories defined in product.ts. Used for the dropdown selection.
 const CATEGORIES: Category[] = ['Capsule', 'Granulation', 'Injectibles', 'Liquid', 'Ointment', 'Other']
 
-// Default empty state
+// Default empty state for a new product.
+// We use this to reset the form when creating a brand new item.
 const emptyProduct: Product = {
   code: '',
   name: '',
@@ -45,120 +49,127 @@ const emptyProduct: Product = {
 }
 
 function AdminProductDetail() {
+  // Get the productId from the URL (e.g., 'new' or 'some-id')
   const { productId } = Route.useParams()
   const navigate = useNavigate()
 
   // Determine if we are creating a new product or editing an existing one based on the URL parameter
   const isNew = productId === 'new'
   
+  // State to hold all the form data. It follows the 'Product' interface structure.
   const [formData, setFormData] = useState<Product>(emptyProduct)
+  // State to hold the actual file object if the user uploads a new image.
   const [imageFile, setImageFile] = useState<File | null>(null)
 
   // Effect to handle initialization: Reset form for new products or fetch data for existing ones
+  // This runs whenever 'productId' or 'isNew' changes.
   useEffect(() => {
     // If creating a new product, ensure the form is reset to empty
     if (isNew) {
       setFormData(emptyProduct)
       return
     }
-    // If editing, simulate fetching data (Replace this with actual API call)
-    if (productId === 'semi-automatic-capsule-filling-machine') {
-       setFormData({
-        code: 'semi-automatic-capsule-filling-machine',
-        name: 'SEMI AUTOMATIC CAPSULE FILLING MACHINE',
-        category: 'Capsule',
-        description: `A Semi Automatic Capsule Filling Machine is designed to fill hard gelatin or vegetarian capsules with powder, granules, or pellets using a combination of manual loading and automated filling. The machine includes capsule loading, orientation, separation, filling, and locking units, providing higher accuracy and output compared to manual machines. Ideal for medium-scale production, it ensures GMP-compliant, dust-free and efficient capsule manufacturing.`,
-        imageUrl: 'https://www.cpduk.co.uk/sites/default/files/news-imported/cpd-benefits-digital-transformation-machinery-cambashi.jpg',
-        features: [
-            'High filling accuracy',
-            'Easy operation & maintenance',
-            'GMP compliant design',
-            'Low noise operation',
-            'Adjustable speed control',
-            'Automatic capsule separation'
-        ],
-        advantages: [
-            'Our Semi-Automatic Capsule Filling Machine offers a perfect balance between manual and fully automatic systems. It significantly increases production capacity while maintaining high precision in dosage.',
-            'The machine is designed to handle various capsule sizes with easy changeover parts, making it versatile for different production requirements. Its robust construction ensures longevity and consistent performance.'
-        ],
-        applicationAreas: [
-            'Pharmaceutical Industry',
-            'Nutraceuticals & Food Supplements',
-            'Ayurvedic & Herbal Medicines',
-            'R&D Laboratories',
-            'Pilot Scale Production',
-            'Cosmetics Industry'
-        ],
-        specifications: [
-            { label: 'Output Capacity', value: '25,000 - 30,000 capsules/hour' },
-            { label: 'Capsule Size', value: '00, 0, 1, 2, 3, 4' },
-            { label: 'Power Consumption', value: '2.2 kW' },
-            { label: 'Dimensions', value: '1500 x 1000 x 1600 mm' },
-            { label: 'Weight', value: '450 kg (Approx.)' }
-        ]
-       })
+    
+    const fetchProduct = async () => {
+      try {
+        const data = await getProductById(productId)
+        if (data) {
+          setFormData(data as Product)
+        }
+      } catch (error) {
+        console.error('Failed to fetch product:', error)
+      }
     }
+
+    fetchProduct()
   }, [productId, isNew])
 
+  // GENERIC HANDLER: Updates simple top-level fields (name, description, etc.)
+  // 'keyof Product' ensures 'field' is a valid property name of our Product type.
   const handleChange = (field: keyof Product, value: any) => {
+    // We use the functional update form (prev => ...) to ensure we have the latest state.
+    // { ...prev } creates a shallow copy of the old state (immutability).
+    // [field]: value updates just the specific property dynamically.
     setFormData(prev => ({ ...prev, [field]: value }))
   }
 
+  // ARRAY HANDLER: Updates a specific string at a specific index in an array (e.g., features[0]).
   const handleArrayChange = (field: 'features' | 'advantages' | 'applicationAreas', index: number, value: string) => {
+    // 1. Create a copy of the array to avoid mutating state directly.
     const newArray = [...formData[field]]
+    // 2. Update the item at the specific index.
     newArray[index] = value
+    // 3. Update the state with the new array.
     setFormData(prev => ({ ...prev, [field]: newArray }))
   }
 
+  // ADD ITEM: Appends an empty string to an array (features/advantages/etc.)
+  // This causes a new input field to appear in the UI.
   const addArrayItem = (field: 'features' | 'advantages' | 'applicationAreas') => {
     setFormData(prev => ({ ...prev, [field]: [...prev[field], ''] }))
   }
 
+  // REMOVE ITEM: Removes an item from an array by its index.
   const removeArrayItem = (field: 'features' | 'advantages' | 'applicationAreas', index: number) => {
+    // .filter((_, i) => i !== index) creates a new array excluding the item at 'index'.
     setFormData(prev => ({ ...prev, [field]: prev[field].filter((_, i) => i !== index) }))
   }
 
+  // SPECIFICATION HANDLER: Updates the label or value of a specification object.
+  // Specifications are an array of objects: [{ label: 'Weight', value: '10kg' }]
   const handleSpecChange = (index: number, key: 'label' | 'value', val: string) => {
+    // 1. Copy the specifications array.
     const newSpecs = [...formData.specifications]
+    // 2. Create a copy of the specific object at that index and update the key (label or value).
     newSpecs[index] = { ...newSpecs[index], [key]: val }
+    // 3. Update state.
     setFormData(prev => ({ ...prev, specifications: newSpecs }))
   }
 
+  // ADD SPEC: Adds a new empty specification object.
   const addSpec = () => {
     setFormData(prev => ({ ...prev, specifications: [...prev.specifications, { label: '', value: '' }] }))
   }
 
+  // REMOVE SPEC: Removes a specification object by index.
   const removeSpec = (index: number) => {
     setFormData(prev => ({ ...prev, specifications: prev.specifications.filter((_, i) => i !== index) }))
   }
 
+  // FILE HANDLER: Handles the file input for image upload.
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0]
+      // Store the actual File object for uploading later.
       setImageFile(file)
-      // Create a preview URL
+      // Create a temporary local URL to show a preview of the image immediately.
       setFormData(prev => ({ ...prev, imageUrl: URL.createObjectURL(file) }))
     }
   }
 
+  // SAVE HANDLER: Submits the form data to the backend.
   const handleSave = async () => {
+    // Basic validation
     if (!formData.name || !formData.category || !formData.description) {
-      alert('Please fill in all required fields: Name, Category, and Description.')
+      toast.error('Please fill in all required fields: Name, Category, and Description.')
       return
     }
 
-    if (isNew) {
-      try {
-        await addProduct(formData, imageFile || undefined)
-        navigate({ to: '/admin/products' })
-      } catch (error) {
-        console.error('Failed to create product:', error)
-      }
-    } else {
-      // Logic for updating an existing product (PUT/PATCH)
-      console.log('Updating product:', formData)
-      // TODO: Add API call to update product
-    }
+    const promise = (isNew
+      ? addProduct(formData, imageFile || undefined)
+      : updateProduct(productId, formData, imageFile || undefined)
+    ).then(() => {
+      navigate({ to: '/admin/products' })
+    })
+
+    toast.promise(promise, {
+      loading: isNew ? 'Creating product...' : 'Updating product...',
+      success: isNew ? 'Product created successfully' : 'Product updated successfully',
+      error: (err) => {
+        console.error(isNew ? 'Failed to create product:' : 'Failed to update product:', err)
+        return isNew ? 'Failed to create product' : 'Failed to update product'
+      },
+    })
   }
 
   return (
@@ -218,13 +229,13 @@ function AdminProductDetail() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="id">Product ID (Slug)</Label>
+                    <Label htmlFor="id">Product ID/Code (Slug)</Label>
                     <Input 
                         id="id" 
                         value={formData.code} 
                         onChange={(e) => handleChange('code', e.target.value)}
                         disabled={!isNew}
-                        placeholder="unique-product-slug"
+                        placeholder="unique-product-slug / MACH67"
                     />
                 </div>
               </div>
@@ -297,6 +308,33 @@ function AdminProductDetail() {
               </Button>
             </CardContent>
           </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Features</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {formData.features.map((feature, index) => (
+                <div key={index} className="flex gap-2">
+                  <Input 
+                    value={feature} 
+                    onChange={(e) => handleArrayChange('features', index, e.target.value)}
+                    placeholder="Feature description" autoFocus
+                  />
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="shrink-0 text-destructive"
+                    onClick={() => removeArrayItem('features', index)}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              ))}
+              <Button variant="outline" size="sm" onClick={() => addArrayItem('features')} className="w-full">
+                <Plus className="mr-2 h-4 w-4" /> Add Feature
+              </Button>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Right Column - Media & Lists */}
@@ -337,33 +375,7 @@ function AdminProductDetail() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Features</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {formData.features.map((feature, index) => (
-                <div key={index} className="flex gap-2">
-                  <Input 
-                    value={feature} 
-                    onChange={(e) => handleArrayChange('features', index, e.target.value)}
-                    placeholder="Feature description" autoFocus
-                  />
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="shrink-0 text-destructive"
-                    onClick={() => removeArrayItem('features', index)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              ))}
-              <Button variant="outline" size="sm" onClick={() => addArrayItem('features')} className="w-full">
-                <Plus className="mr-2 h-4 w-4" /> Add Feature
-              </Button>
-            </CardContent>
-          </Card>
+          
 
           <Card>
             <CardHeader>

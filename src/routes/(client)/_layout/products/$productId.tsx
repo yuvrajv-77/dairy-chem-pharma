@@ -1,58 +1,67 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Mail } from 'lucide-react'
 import type { Product } from '@/types/product'
+import { useEffect, useState } from 'react'
+import { getProductById } from '@/services/productsServices'
 
-const productData: Product = {
-    code: 'semi-automatic-capsule-filling-machine',
-    name: 'SEMI AUTOMATIC CAPSULE FILLING MACHINE',
-    category: 'Capsule',
-    description: `A Semi Automatic Capsule Filling Machine is designed to fill hard gelatin or vegetarian
-                                capsules with powder, granules, or pellets using a combination of manual loading and
-                                automated filling. The machine includes capsule loading, orientation, separation, filling, and
-                                locking units, providing higher accuracy and output compared to manual machines. Ideal for
-                                medium-scale production, it ensures GMP-compliant, dust-free and efficient capsule
-                                manufacturing.`,
-    imageUrl: 'https://www.cpduk.co.uk/sites/default/files/news-imported/cpd-benefits-digital-transformation-machinery-cambashi.jpg',
-    features: [
-        'High filling accuracy',
-        'Easy operation & maintenance',
-        'GMP compliant design',
-        'Low noise operation',
-        'Adjustable speed control',
-        'Automatic capsule separation'
-    ],
-    advantages: [
-        'Our Semi-Automatic Capsule Filling Machine offers a perfect balance between manual and fully automatic systems. It significantly increases production capacity while maintaining high precision in dosage.',
-        'The machine is designed to handle various capsule sizes with easy changeover parts, making it versatile for different production requirements. Its robust construction ensures longevity and consistent performance.'
-    ],
-    applicationAreas: [
-        'Pharmaceutical Industry',
-        'Nutraceuticals & Food Supplements',
-        'Ayurvedic & Herbal Medicines',
-        'R&D Laboratories',
-        'Pilot Scale Production',
-        'Cosmetics Industry'
-    ],
-    specifications: [
-        { label: 'Output Capacity', value: '25,000 - 30,000 capsules/hour' },
-        { label: 'Capsule Size', value: '00, 0, 1, 2, 3, 4' },
-        { label: 'Power Consumption', value: '2.2 kW' },
-        { label: 'Dimensions', value: '1500 x 1000 x 1600 mm' },
-        { label: 'Weight', value: '450 kg (Approx.)' }
-    ]
-}
 
 export const Route = createFileRoute('/(client)/_layout/products/$productId')({
     component: ProductDetailPage,
 })
 
 function ProductDetailPage() {
+    const { productId } = Route.useParams()
+    const navigate = useNavigate()
+    const [productData, setProductData] = useState<Product>({
+        code: '',
+        name: '',
+        category: '' as any, // Default or initial category
+        description: '',
+        imageUrl: '',
+        features: [],
+        advantages: [],
+        applicationAreas: [],
+        specifications: []
+    })
+
+    useEffect(() => {
+        // Scroll to the top of the page when the component mounts or the productId changes
+        window.scrollTo(0, 0);
+
+        // Define an asynchronous function to fetch product details from the backend
+        const fetchProductDetails = async () => {
+            try {
+                // Attempt to fetch the product data using the service function
+                const data = await getProductById(productId);
+
+                // If data is successfully returned, update the local state
+                if (data) {
+                    // Cast the data to the Product type and update state
+                    setProductData(data as Product);
+                }
+            } catch (error) {
+                // Log any errors that occur during the fetch operation
+                console.error("Failed to fetch product details:", error);
+            }
+        };
+
+        // Invoke the fetch function
+        fetchProductDetails();
+    }, [productId]); // Dependency array ensures this runs only when productId changes
+    
+    const sections = [
+        { id: 'features', label: 'Features', hasData: productData.features?.length > 0 },
+        { id: 'advantages', label: 'Advantages', hasData: productData.advantages?.length > 0 },
+        { id: 'application-area', label: 'Application Area', hasData: productData.applicationAreas?.length > 0 },
+        { id: 'specifications', label: 'Specifications', hasData: productData.specifications?.length > 0 },
+    ];
+
     return (
         <main>
             <section className='relative flex-1 flex justify-center items-center  h-60 lg:h-90'>
-                <div className='absolute inset-0 bg-cover bg-center brightness-35' style={{ backgroundImage: `url(${productData.imageUrl})` }} />
+                <div className='absolute inset-0 bg-[url(https://www.cpduk.co.uk/sites/default/files/news-imported/cpd-benefits-digital-transformation-machinery-cambashi.jpg)] bg-cover bg-center brightness-35' />
                 <div className='relative flex items-center justify-center flex-col text-white'>
                     <h1 className='font-extrabold lg:text-5xl text-2xl '>Our Product</h1>
                     <Breadcrumb className='mt-2 '>
@@ -64,7 +73,13 @@ function ProductDetailPage() {
                                 <BreadcrumbSeparator color='white' />
                             </BreadcrumbItem>
                             <BreadcrumbItem>
-                                <BreadcrumbPage className='text-white'>Products</BreadcrumbPage>
+                                <BreadcrumbLink href="/products" className='text-white'>Products</BreadcrumbLink>
+                            </BreadcrumbItem>
+                            <BreadcrumbItem>
+                                <BreadcrumbSeparator color='white' />
+                            </BreadcrumbItem>
+                            <BreadcrumbItem>
+                                <BreadcrumbPage className='text-white'>{productData.name}</BreadcrumbPage>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
@@ -92,63 +107,71 @@ function ProductDetailPage() {
                         <aside className='hidden lg:block col-span-1'>
                             <div className='sticky top-24 flex flex-col gap-2 border-l-2 pl-4'>
                                 <h3 className='font-bold text-primary mb-2'>On this page</h3>
-                                {['Features', 'Advantages', 'Application Area', 'Specifications'].map((item) => (
+                                {sections.filter(s => s.hasData).map((item) => (
                                     <a
-                                        key={item}
-                                        href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
+                                        key={item.id}
+                                        href={`#${item.id}`}
                                         className='text-sm text-secondary-foreground/80 hover:text-primary hover:font-medium transition-colors'
                                     >
-                                        {item}
+                                        {item.label}
                                     </a>
                                 ))}
                             </div>
                         </aside>
                         <div className='lg:col-span-3 space-y-12'>
-                            <section id='features' className='scroll-mt-24'>
-                                <h2 className='text-2xl font-bold mb-4'>Features</h2>
-                                <ul className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                                    {productData.features.map((feature, i) => (
-                                        <li key={i} className='flex items-center gap-2 text-secondary-foreground'>
-                                            <div className='h-2 w-2 rounded-full bg-primary' />
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </section>
-                            <section id='advantages' className='scroll-mt-24'>
-                                <h2 className='text-2xl font-bold mb-4'>Advantages</h2>
-                                <div className='space-y-4 text-secondary-foreground text-justify'>
-                                    {productData.advantages.map((advantage, i) => (
-                                        <p key={i}>{advantage}</p>
-                                    ))}
-                                </div>
-                            </section>
-                            <section id='application-area' className='scroll-mt-24'>
-                                <h2 className='text-2xl font-bold mb-4'>Application Areas</h2>
-                                <ul className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                                    {productData.applicationAreas.map((area, i) => (
-                                        <li key={i} className='flex items-center gap-2 text-secondary-foreground'>
-                                            <div className='h-2 w-2 rounded-full bg-primary' />
-                                            {area}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </section>
-                            <section id='specifications' className='scroll-mt-24'>
-                                <h2 className='text-2xl font-bold mb-4'>Technical Specifications</h2>
-                                <div className='border rounded-xl overflow-hidden'>
-                                    <table className='w-full text-sm text-left'>
-                                        <tbody className='divide-y'>
-                                            {productData.specifications.map((spec, i) => (
-                                                <tr key={i} className={i % 2 === 0 ? 'bg-secondary/30' : ''}>
-                                                    <td className='p-4 font-semibold w-1/3'>{spec.label}</td>
-                                                    <td className='p-4'>{spec.value}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </section>
+                            {productData.features?.length > 0 && (
+                                <section id='features' className='scroll-mt-24'>
+                                    <h2 className='text-2xl font-bold mb-4'>Features</h2>
+                                    <ul className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                                        {productData.features.map((feature, i) => (
+                                            <li key={i} className='flex items-center gap-2 text-secondary-foreground'>
+                                                <div className='h-2 w-2 rounded-full bg-primary' />
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </section>
+                            )}
+                            {productData.advantages?.length > 0 && (
+                                <section id='advantages' className='scroll-mt-24'>
+                                    <h2 className='text-2xl font-bold mb-4'>Advantages</h2>
+                                    <div className='space-y-4 text-secondary-foreground text-justify'>
+                                        {productData.advantages.map((advantage, i) => (
+                                            <p key={i}>{advantage}</p>
+                                        ))}
+                                    </div>
+                                </section>
+                            )}
+                            {productData.applicationAreas?.length > 0 && (
+                                <section id='application-area' className='scroll-mt-24'>
+                                    <h2 className='text-2xl font-bold mb-4'>Application Areas</h2>
+                                    <ul className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                                        {productData.applicationAreas.map((area, i) => (
+                                            <li key={i} className='flex items-center gap-2 text-secondary-foreground'>
+                                                <div className='h-2 w-2 rounded-full bg-primary' />
+                                                {area}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </section>
+                            )}
+                            {productData.specifications?.length > 0 && (
+                                <section id='specifications' className='scroll-mt-24'>
+                                    <h2 className='text-2xl font-bold mb-4'>Technical Specifications</h2>
+                                    <div className='border rounded-xl overflow-hidden'>
+                                        <table className='w-full text-sm text-left'>
+                                            <tbody className='divide-y'>
+                                                {productData.specifications.map((spec, i) => (
+                                                    <tr key={i} className={i % 2 === 0 ? 'bg-secondary/30' : ''}>
+                                                        <td className='p-4 font-semibold w-1/3'>{spec.label}</td>
+                                                        <td className='p-4'>{spec.value}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </section>
+                            )}
                         </div>
                     </div>
                 </div>

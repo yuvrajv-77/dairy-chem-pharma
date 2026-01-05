@@ -1,6 +1,9 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
+import { useProducts } from '@/contexts/ProductsContext'
+
 import { createFileRoute } from '@tanstack/react-router'
+import { useMemo } from 'react'
 
 export const Route = createFileRoute('/(client)/_layout/products/')({
     component: ProductsIndexPage,
@@ -26,38 +29,7 @@ const categories = [
     'Ointment',
 ]
 
-const products = [
-    {
-        id: 1,
-        name: 'Paracetamol 500mg',
-        category: 'Capsule',
-        description: 'Effective pain relief and fever reducer. Effective pain relief and fever reducer.',
-    },
-    {
-        id: 2,
-        name: 'Vitamin C Granules',
-        category: 'Granulation',
-        description: 'Immunity boosting citrus flavored granules. Effective pain relief and fever reducer.',
-    },
-    {
-        id: 3,
-        name: 'Insulin Injection',
-        category: 'Injectibles',
-        description: 'Fast-acting insulin for diabetes management. Effective pain relief and fever reducer.',
-    },
-    {
-        id: 4,
-        name: 'Cough Syrup',
-        category: 'Liquid',
-        description: 'Soothing relief for dry and chesty coughs. Effective pain relief and fever reducer.',
-    },
-    {
-        id: 5,
-        name: 'Antiseptic Ointment',
-        category: 'Ointment',
-        description: 'Promotes healing of minor cuts and burns. Effective pain relief and fever reducer.',
-    },
-]
+
 
 /**
  * Renders the products index page.
@@ -73,11 +45,13 @@ const products = [
 function ProductsIndexPage() {
     const { filter } = Route.useSearch()
     const navigate = Route.useNavigate()
+    const { products } = useProducts()
 
-    const filteredProducts =
-        filter === 'All'
+    const filteredProducts = useMemo(() => {
+        return filter === 'All'
             ? products
             : products.filter((product) => product.category === filter)
+    }, [filter, products])
 
     return (
         <main>
@@ -100,7 +74,7 @@ function ProductsIndexPage() {
                     </Breadcrumb>
                 </div>
             </section>
-            <div className='container mx-auto  px-4 lg:px-70 py-10 lg:py-10'>
+            <div className='container mx-auto  px-4 lg:px-50 py-10 lg:py-10'>
                 <div className=''>
                     <span className='text-center space-y-3'>
                         <h1 className='text-2xl lg:text-4xl font-extrabold'>Our Machinery and Services</h1>
@@ -124,9 +98,9 @@ function ProductsIndexPage() {
 
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10'>
                     {filteredProducts.map((product) => (
-                        <div key={product.id} className='bg-secondary shadow-sm hover:shadow-md transition-shadow rounded-lg overflow-hidden cursor-pointer ' onClick={()=> navigate({ to: '/products/$productId', params: { productId: String(product.id) } })}>
+                        <div key={product.id} className='bg-secondary shadow-sm hover:shadow-md transition-shadow rounded-lg overflow-hidden cursor-pointer ' onClick={() => navigate({ to: '/products/$productId', params: { productId: String(product.id) } })}>
                             <div className='h-50  rounded-md mb-2 flex items-center justify-center'>
-                                <img className='h-full object-cover' src="https://www.cpduk.co.uk/sites/default/files/news-imported/cpd-benefits-digital-transformation-machinery-cambashi.jpg" alt="" />
+                                <img className='h-full object-cover' src={product.imageUrl} alt="" />
                             </div>
                             <div className='p-4 space-y-3'>
                                 <h2 className='text-xl font-bold'>{product.name}</h2>

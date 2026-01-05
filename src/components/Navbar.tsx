@@ -1,5 +1,5 @@
 import React from 'react'
-import {  CheckSquare2, Mail, Menu, Phone, PhoneCall, Search, X } from 'lucide-react'
+import { CheckSquare2, Mail, Menu, Phone, PhoneCall, Search, X } from 'lucide-react'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
@@ -16,19 +16,19 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion'
-
-const categories = [
-    'Capsule',
-    'Granulation',
-    'Injectibles',
-    'Liquid',
-    'Ointment',
-]
+import { useProducts } from '@/contexts/ProductsContext'
 
 const Navbar = () => {
     const navigate = useNavigate();
-
+    const { products } = useProducts();
     const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false)
+
+    const categories = React.useMemo(() => {
+        return [...new Set(products?.map((product: any) => product.category))].filter(Boolean).slice(0, 6)
+    }, [products])
+
+    console.log(products);
+
     return (
         <header className='bg-white  border-gray-800 z-40'>
             <div className=' '>
@@ -65,7 +65,7 @@ const Navbar = () => {
                                 <h1 className='text-lg md:text-2xl font-black text-primary'>DairyChem Pharma Machineries</h1>
                                 <span className='flex gap-2'>
                                     <p className='text-[9px] font-semibold md:text-xs'>Mira Road, Surat, Gujarat - 402125 </p>
-                                    <p className='text-[9px] font-semibold md:text-xs'>|</p> 
+                                    <p className='text-[9px] font-semibold md:text-xs'>|</p>
                                     <p className='text-[9px] flex gap-1 font-semibold md:text-xs'>GSTIN: <p className='font-bold'>27AAGCS0001Q1ZJ </p></p>
                                 </span>
                             </span>
@@ -225,38 +225,39 @@ const Navbar = () => {
                                 <NavigationMenuItem>
                                     <NavigationMenuTrigger>Products</NavigationMenuTrigger>
                                     <NavigationMenuContent className='z-10'>
-                                        <ul className='grid w-[300px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]'>
-                                            <li className="row-span-3">
-                                                <NavigationMenuLink asChild>
-                                                    <Link
-                                                        to="/products"
-                                                        search={{ filter: '' }}  // Added required search prop with empty string for no filter
-                                                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md bg-gray-50"
-                                                    >
-                                                        <div className="mb-2 mt-4 text-lg font-medium">
-                                                            All Products
-                                                        </div>
-                                                        <p className="text-sm leading-tight text-muted-foreground">
-                                                            Browse our complete catalog of pharmaceutical machinery.
-                                                        </p>
-                                                    </Link>
-                                                </NavigationMenuLink>
-                                            </li>
-                                            <li className="col-span-1">
-                                                <div className="mb-2 px-2 text-lg font-medium">Categories</div>
-                                                <div className="grid grid-cols-1 gap-1">
-                                                    {categories.map((category) => (
-                                                        <NavigationMenuLink asChild key={category}>
+                                        <ul className='grid gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]'>
+                                            {categories.map((category: any) => (
+                                                <li key={category}>
+                                                    <div className="text-sm font-bold mb-2 leading-none">{category}</div>
+                                                    {products?.filter((p: any) => p.category === category).map((product: any) => (
+                                                        <NavigationMenuLink asChild key={product._id}>
                                                             <Link
-                                                                to="/products"
-                                                                search={{ filter: category }}
+                                                                to="/products/$productId"
+                                                                params={{ productId: product.id }}
                                                                 className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                                             >
-                                                                <div className="text-sm font-medium leading-none">{category}</div>
+                                                                <div className="text-sm font-medium leading-none">{product.name}</div>
+                                                                <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">
+                                                                    {product.description}
+                                                                </p>
                                                             </Link>
                                                         </NavigationMenuLink>
                                                     ))}
-                                                </div>
+                                                </li>
+                                            ))}
+                                            <li>
+                                                <NavigationMenuLink asChild>
+                                                    <Link
+                                                        to="/products"
+                                                        search={{ filter: '' }}
+                                                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground bg-gray-50"
+                                                    >
+                                                        <div className="text-sm font-medium leading-none">All Products</div>
+                                                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                                            Browse all machinery
+                                                        </p>
+                                                    </Link>
+                                                </NavigationMenuLink>
                                             </li>
                                         </ul>
                                     </NavigationMenuContent>
@@ -266,7 +267,7 @@ const Navbar = () => {
                                     <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                                         <Link to="/blogs" params={{}}>Blogs</Link>
                                     </NavigationMenuLink>
-                                </NavigationMenuItem>   
+                                </NavigationMenuItem>
 
                                 {/* <NavigationMenuItem>
                                     <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>

@@ -1,5 +1,5 @@
 import { db, storage } from "@/config/firebaseConfig";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const uploadProductImage = async (file: File, path: string) => {
@@ -15,6 +15,36 @@ export const uploadProductImage = async (file: File, path: string) => {
   }
 }
 
+export const deleteProduct = async (productId: string) => {
+  try {
+    const productRef = doc(db, 'products', productId);
+    await deleteDoc(productRef);
+  } catch (e) {
+    console.error('Error deleting product: ', e);
+    throw e;
+  }
+}
+
+export const updateProduct = async (productId: string, productData: any, imageFile?: File) => {
+  try {
+    const productRef = doc(db, 'products', productId);
+    
+    let imageUrl = productData.imageUrl;
+    
+    if (imageFile) {
+       imageUrl = await uploadProductImage(imageFile, `products/${productId}`);
+    }
+    
+    const dataToUpdate = { ...productData, imageUrl, updatedAt: new Date().toISOString() };
+    delete dataToUpdate.id; // Ensure ID is not stored as a field inside the document
+
+    await updateDoc(productRef, dataToUpdate);
+  } catch (e) {
+    console.error('Error updating product: ', e);
+    throw e;
+  }
+}
+
 export const getProducts = async () => {
   try {
     const itemCollectionRef = collection(db, 'products');
@@ -25,6 +55,25 @@ export const getProducts = async () => {
     }));
   } catch (e) {
     console.error('Error getting products: ', e);
+    throw e;
+  }
+}
+
+export const getProductById = async (productId: string) => {
+  try {
+    const productRef = doc(db, 'products', productId);
+    const productSnap = await getDoc(productRef);
+
+    if (productSnap.exists()) {
+      return {
+        ...productSnap.data(),
+        id: productSnap.id,
+      };
+    } else {
+      return null;
+    }
+  } catch (e) {
+    console.error('Error getting product: ', e);
     throw e;
   }
 }
