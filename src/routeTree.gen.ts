@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminAdminRouteImport } from './routes/admin/_admin'
 import { Route as clientLayoutRouteImport } from './routes/(client)/_layout'
 import { Route as AdminAdminIndexRouteImport } from './routes/admin/_admin/index'
@@ -23,6 +24,11 @@ import { Route as AdminAdminProductsProductIdRouteImport } from './routes/admin/
 import { Route as clientLayoutProductsProductIdRouteImport } from './routes/(client)/_layout/products/$productId'
 import { Route as clientLayoutBlogsBlogIdRouteImport } from './routes/(client)/_layout/blogs/$blogId'
 
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminAdminRoute = AdminAdminRouteImport.update({
   id: '/admin/_admin',
   path: '/admin',
@@ -93,6 +99,7 @@ const clientLayoutBlogsBlogIdRoute = clientLayoutBlogsBlogIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/admin': typeof AdminAdminRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
   '/about': typeof clientLayoutAboutRoute
   '/contact': typeof clientLayoutContactRoute
   '/': typeof clientLayoutIndexRoute
@@ -106,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/admin/settings': typeof AdminAdminSettingsIndexRoute
 }
 export interface FileRoutesByTo {
+  '/admin/login': typeof AdminLoginRoute
   '/about': typeof clientLayoutAboutRoute
   '/contact': typeof clientLayoutContactRoute
   '/': typeof clientLayoutIndexRoute
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/(client)/_layout': typeof clientLayoutRouteWithChildren
   '/admin/_admin': typeof AdminAdminRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
   '/(client)/_layout/about': typeof clientLayoutAboutRoute
   '/(client)/_layout/contact': typeof clientLayoutContactRoute
   '/(client)/_layout/': typeof clientLayoutIndexRoute
@@ -138,6 +147,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/admin'
+    | '/admin/login'
     | '/about'
     | '/contact'
     | '/'
@@ -151,6 +161,7 @@ export interface FileRouteTypes {
     | '/admin/settings'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/admin/login'
     | '/about'
     | '/contact'
     | '/'
@@ -166,6 +177,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/(client)/_layout'
     | '/admin/_admin'
+    | '/admin/login'
     | '/(client)/_layout/about'
     | '/(client)/_layout/contact'
     | '/(client)/_layout/'
@@ -182,10 +194,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   clientLayoutRoute: typeof clientLayoutRouteWithChildren
   AdminAdminRoute: typeof AdminAdminRouteWithChildren
+  AdminLoginRoute: typeof AdminLoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/_admin': {
       id: '/admin/_admin'
       path: '/admin'
@@ -325,6 +345,7 @@ const AdminAdminRouteWithChildren = AdminAdminRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   clientLayoutRoute: clientLayoutRouteWithChildren,
   AdminAdminRoute: AdminAdminRouteWithChildren,
+  AdminLoginRoute: AdminLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

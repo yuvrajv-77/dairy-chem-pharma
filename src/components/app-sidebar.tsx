@@ -3,6 +3,7 @@ import { Book, Calendar, Home, Inbox, Search, Settings } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -10,13 +11,17 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { Link } from "@tanstack/react-router"
+import { Link, Navigate, redirect } from "@tanstack/react-router"
+import { toast } from "sonner";
+import { Button } from "./ui/button";
+import { signOut } from "firebase/auth";
+import { auth } from "@/config/firebaseConfig";
 
 // Menu items.
 const items = [
   {
     title: "Home",
-    url: "/admin",
+    url: "/",
     icon: Home,
   },
   {
@@ -24,13 +29,22 @@ const items = [
     url: "/admin/products",
     icon: Inbox,
   },
-  
-  {
-    title: "Blogs",
-    url: "/admin/blogs",
-    icon: Book,
-  },
+
+  //   {
+  //     title: "Blogs",
+  //     url: "/admin/blogs",
+  //     icon: Book,
+  //   },
 ]
+const handleLogoutClick = async () => {
+  try {
+    await signOut(auth);
+   redirect({ to: '/admin/login' })
+    toast.success('Logged out successfully');
+  } catch (error) {
+    toast.error('Failed to logout. Please try again.');
+  }
+};
 
 export function AppSidebar() {
   return (
@@ -38,10 +52,10 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="h-22 border flex justify-center p-1">
-                <img className="w-20"
-                src="/logo.jpeg" 
-                alt="" 
-                />
+            <img className="w-20"
+              src="/logo.jpeg"
+              alt=""
+            />
           </SidebarGroupLabel>
           <SidebarGroupContent >
             <SidebarMenu >
@@ -59,6 +73,11 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <Button color="destructive" onClick={handleLogoutClick}>
+          LogOut
+        </Button>
+      </SidebarFooter>
     </Sidebar>
   )
 }

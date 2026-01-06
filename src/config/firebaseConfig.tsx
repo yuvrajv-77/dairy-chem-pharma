@@ -29,7 +29,7 @@ export const storage = getStorage(app);
 // export const messaging = getMessaging(app);
 
 if (window.location.hostname === "localhost") {
-  connectAuthEmulator(auth, "http://localhost:9099");
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
   connectFirestoreEmulator(db, "localhost", 8080);
   connectStorageEmulator(storage, "localhost", 9199);
 }
