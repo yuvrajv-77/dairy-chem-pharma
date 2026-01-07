@@ -59,12 +59,12 @@ const Navbar = () => {
                         </Button>
                         <Link to={"/"} className='flex items-center gap-2'>
                             <span className='  border-primary p-1'>
-                                <img src={logo} className='size-14' alt="" />
+                                <img src={logo} className='size-12 md:size-16' alt="" />
                             </span>
                             <span>
-                                <h1 className='text-lg md:text-2xl font-black text-primary'>DairyChem Pharma Machineries</h1>
+                                <h1 className='text-md md:text-2xl font-black text-primary'>DairyChem Pharma Machineries</h1>
                                 <span className='flex gap-2'>
-                                    <p className='text-[9px] font-semibold md:text-xs'>Mira Road, Surat, Gujarat - 402125 </p>
+                                    <p className='text-[9px] font-semibold  md:text-xs'>Mira Road, Surat, Gujarat - 402125 </p>
                                     <p className='text-[9px] font-semibold md:text-xs'>|</p>
                                     <p className='text-[9px] flex gap-1 font-semibold md:text-xs'>GSTIN: <p className='font-bold'>27AAGCS0001Q1ZJ </p></p>
                                 </span>
@@ -81,14 +81,14 @@ const Navbar = () => {
                                 animate={{ x: 0 }}
                                 exit={{ x: '-100%' }}
                                 transition={{ type: 'tween', duration: 0.3 }}
-                                className="fixed top-0 left-0 z-50 w-screen h-full bg-primary shadow-lg flex flex-col"
+                                className="fixed top-0 left-0 z-50 w-screen h-full bg-white shadow-lg flex flex-col"
                             >
                                 <div className="flex  items-center justify-between p-4 border-b">
                                     <div className="flex items-center gap-2">
-                                        <span className='border border-primary p-1'>
-                                            <img src="/Brand Logo.png" className='size-10 rounded-sm' alt="" />
+                                        <span className=' p-1'>
+                                            <img src="/logo.jpeg" className='size-10 rounded-sm' alt="" />
                                         </span>
-                                        <h1 className='text-lg font-extrabold text-white'>DairyChem Pharma Machineries</h1>
+                                        <h1 className='text-lg font-extrabold text-primary'>DairyChem Pharma Machineries</h1>
                                     </div>
                                     <Button
                                         size="icon"
@@ -112,75 +112,73 @@ const Navbar = () => {
                                     ))} */}
                                     <Link
                                         to={'/'}
-                                        className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
+                                        className="text- font-semibold py-2 px-2 rounded hover:bg-accent"
                                         onClick={() => setIsMobileNavOpen(false)}
                                     >
                                         Home
                                     </Link>
                                     <Link
                                         to={'/about'}
-                                        className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
+                                        className="text- font-semibold py-2 px-2 rounded hover:bg-accent"
                                         onClick={() => setIsMobileNavOpen(false)}
                                     >
                                         About
                                     </Link>
-                                    {/* <Link
-                                        to={'/companies'}
-                                        className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
-                                        onClick={() => setIsMobileNavOpen(false)}
-                                    >
-                                        Companies
-                                    </Link> */}
+
+                                    <Accordion type="single" className='' collapsible>
+                                        <AccordionItem value="item-1" className='border-none'>
+                                            <AccordionTrigger className="text- focus:bg-primary font-semibold py-2 text-base px-2 rounded hover:bg-accent focus:text-white hover:no-underline">Products</AccordionTrigger>
+                                            <AccordionContent className='bg-white p-2 text-primary flex flex-col gap-2 rounded-b-lg'>
+                                                {categories.map((category: any) => (
+                                                    <div key={category} className="mb-2">
+                                                        <div className="text-black font-bold mb-1 px-2">{category}</div>
+                                                        {products?.filter((p: any) => p.category === category).map((product: any) => (
+                                                            <Link
+                                                                key={product._id}
+                                                                to="/products/$productId"
+                                                                params={{ productId: product.id }}
+                                                                className="block text-black text-sm py-1 px-4 rounded hover:accent"
+                                                                onClick={() => setIsMobileNavOpen(false)}
+                                                            >
+                                                                {product.name}
+                                                            </Link>
+                                                        ))}
+                                                    </div>
+                                                ))}
+                                                <Link
+                                                    to="/products"
+                                                    search={{ filter: '' }}
+                                                    className="text-black font-bold py-2 px-2 rounded hover:bg-accent mt-2 block"
+                                                    onClick={() => setIsMobileNavOpen(false)}
+                                                >
+                                                    All Products
+                                                </Link>
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                    </Accordion>
+
                                     <Link
                                         to={'/blogs'}
-                                        className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
+                                        className="text-black font-semibold py-2 px-2 rounded hover:bg-accent"
                                         onClick={() => setIsMobileNavOpen(false)}
                                     >
                                         Blogs
                                     </Link>
 
-                                    <Accordion type="single" className='' collapsible>
-                                        <AccordionItem value="item-1">
-                                            <AccordionTrigger className="text-white focus:bg-violet-400 font-semibold py-2 text-base px-2 rounded hover:bg-violet-400">Laboratory Chemicals</AccordionTrigger>
-                                            <AccordionContent className='bg-violet-500 p-4 text-primary flex flex-col gap-2 rounded-b-lg'>
-                                                {/* <Link
-                                                    to={'/chemicals'}
-                                                    className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
-                                                    onClick={() => setIsMobileNavOpen(false)}
-                                                >
-                                                    All Chemicals
-                                                </Link>
-                                                <Link
-                                                    to={'/categories'}
-                                                    className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
-                                                    onClick={() => setIsMobileNavOpen(false)}
-                                                >
-                                                    By Category
-                                                </Link> */}
-                                            </AccordionContent>
-                                        </AccordionItem>
-                                    </Accordion>
-
-                                    {/* <Link
-                                        to={'/events'}
-                                        className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
-                                        onClick={() => setIsMobileNavOpen(false)}
-                                    >
-                                        Events
-                                    </Link> */}
-                                    {/* <Link
-                                        to={'/gallery'}
-                                        className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
-                                        onClick={() => setIsMobileNavOpen(false)}
-                                    >
-                                        Gallery
-                                    </Link> */}
                                     <Link
                                         to={'/contact'}
-                                        className="text-white font-semibold py-2 px-2 rounded hover:bg-violet-400"
+                                        className="text-black font-semibold py-2 px-2 rounded hover:bg-accent"
                                         onClick={() => setIsMobileNavOpen(false)}
                                     >
                                         Contact
+                                    </Link>
+
+                                    <Link
+                                        to={'/admin'}
+                                        className="text-black font-semibold py-2 px-2 rounded hover:bg-accent"
+                                        onClick={() => setIsMobileNavOpen(false)}
+                                    >
+                                        Admin
                                     </Link>
 
                                 </nav>
@@ -188,7 +186,7 @@ const Navbar = () => {
                         )}
                     </AnimatePresence>
 
-                    <div className='flex mx-auto md:mx-0 item-center md:gap-10 md:mt-0 mt-5 gap-4 text-[8px] md:text-base'>
+                    <div className='hidden lg:flex mx-auto md:mx-0 item-center md:gap-10 md:mt-0 mt-5 gap-4 text-[8px] md:text-base'>
 
                         <span className='flex flex-col items-start md:items-end font-semibold'>
                             <p className='flex items-center gap-1'><CheckSquare2 size={20} /> Certified</p>

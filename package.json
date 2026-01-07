@@ -26,6 +26,7 @@
     "@tanstack/react-form": "^1.27.5",
     "@tanstack/react-router": "^1.141.6",
     "@tanstack/react-router-devtools": "^1.141.6",
+    "@tawk.to/tawk-messenger-react": "^2.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^12.7.0",
