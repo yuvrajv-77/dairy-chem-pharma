@@ -23,6 +23,7 @@ export const Route = createFileRoute('/admin/_admin/blogs/')({
 export interface Blog {
   id?: string;
   title: string;
+  description: string;
   body: string;
   imageUrl: string;
   createdAt: string;

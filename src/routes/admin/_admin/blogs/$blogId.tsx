@@ -3,6 +3,7 @@ import 'react-quill/dist/quill.snow.css';
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { ArrowLeft, Save, Upload } from 'lucide-react'
@@ -19,6 +20,7 @@ export const Route = createFileRoute('/admin/_admin/blogs/$blogId')({
 
 const emptyBlog: Blog = {
     title: '',
+    description: '',
     body: '',
     imageUrl: '',
     createdAt: '',
@@ -66,8 +68,8 @@ function AdminBlogDetail() {
     }
 
     const handleSave = async () => {
-        if (!formData.title || !formData.body) {
-            toast.error('Please fill in Title and Body.')
+        if (!formData.title || !formData.body || !formData.description) {
+            toast.error('Please fill in Title, Description and Body.')
             return
         }
 
@@ -141,6 +143,17 @@ function AdminBlogDetail() {
                                     value={formData.title}
                                     onChange={(e) => handleChange('title', e.target.value)}
                                     placeholder="Blog Title"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="description">Description <span className="text-destructive">*</span></Label>
+                                <Textarea
+                                    id="description"
+                                    required
+                                    value={formData.description}
+                                    onChange={(e) => handleChange('description', e.target.value)}
+                                    placeholder="Short description for the blog card"
                                 />
                             </div>
 

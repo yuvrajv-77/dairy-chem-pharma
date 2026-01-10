@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar'
 import { ProductsProvider } from '@/contexts/ProductsContext'
 import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 import Footer from '@/components/Footer';
+import { BlogsProvider } from '@/contexts/BlogsContext';
 
 
 export const Route = createFileRoute('/(client)/_layout')({
@@ -13,6 +14,7 @@ export const Route = createFileRoute('/(client)/_layout')({
 function Layout() {
   return (
     <ProductsProvider>
+    <BlogsProvider>
       <Navbar />
       <Outlet />
       <Footer/>
@@ -20,6 +22,7 @@ function Layout() {
         propertyId= {import.meta.env.VITE_TAWK_PROPERTY_ID}
         widgetId= {import.meta.env.VITE_TAWK_WIDGET_ID}
       />
+    </BlogsProvider>
     </ProductsProvider>
   )
 }

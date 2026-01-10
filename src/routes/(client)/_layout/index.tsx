@@ -2,12 +2,13 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { ImagesSlider } from '@/components/ui/images-slider'
 import { WordRotate } from '@/components/ui/word-rotate'
+import { useBlogs } from '@/contexts/BlogsContext'
 import { useProducts } from '@/contexts/ProductsContext'
 import { createFileRoute } from '@tanstack/react-router'
 import { ArrowRight, ArrowUpRight, CalendarRange, Star } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useMemo } from 'react'
-import { BLOG_POSTS } from './blogs'
+
 
 export const Route = createFileRoute('/(client)/_layout/')({
   component: Home,
@@ -81,6 +82,9 @@ function Home() {
 
   const navigate = Route.useNavigate()
   const { products } = useProducts()
+  const { blogs } = useBlogs();
+  console.log(blogs);
+  
 
   // const filteredProducts = useMemo(() => {
   //   return filter === 'All'
@@ -88,8 +92,9 @@ function Home() {
   //     : products.filter((product) => product.category === filter)
   // }, [filter, products])
 
-  const featuredPost = BLOG_POSTS[0]
-  const smallPosts = BLOG_POSTS.slice(1, 4)
+  const featuredPost = blogs[0]
+  const smallPosts = blogs.slice(1, 4)
+
   return (
     <main className=''>
       {/* hero section */}
@@ -231,28 +236,35 @@ function Home() {
 
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
             <div className=''>
-              <article className='flex flex-col gap-3  cursor-pointer group' onClick={() => navigate({ to: '/blogs/$blogId', params: { blogId: String(featuredPost.id) } })}>
-                <img src={featuredPost.image} alt={featuredPost.title} className='w-full h-60 lg:h-80 object-cover rounded-lg group-hover:scale-101 transition-all' />
-                <h2 className='text-xl md:text-2xl font-extrabold line-clamp-2 group-hover:underline'>{featuredPost.title}</h2>
-                <p className='text-slate-600 text-sm line-clamp-2 '>{featuredPost.description}</p>
-                <p className='flex items-center text-slate-500 text-xs gap-2'><CalendarRange size={15} />October, 15, 2022</p>
-              </article>
+              {featuredPost ? (
+                <article className='flex flex-col gap-3  cursor-pointer group' onClick={() => navigate({ to: '/blogs/$blogId', params: { blogId: String(featuredPost.id) } })}>
+                  <img src={featuredPost.imageUrl || 'https://via.placeholder.co/600x400'} alt={featuredPost.title} className='w-full h-60 lg:h-80 object-cover rounded-lg group-hover:scale-101 transition-all' />
+                  <h2 className='text-xl md:text-2xl font-extrabold line-clamp-2 group-hover:underline'>{featuredPost.title}</h2>
+                  <p className='text-slate-600 text-sm line-clamp-2 '>{featuredPost.description}</p>
+                  <p className='flex items-center text-slate-500 text-xs gap-2'><CalendarRange size={15} />{new Date(featuredPost.createdAt).toLocaleDateString()}</p>
+                </article>
+              ) : (
+                <div className="h-60 lg:h-80 flex items-center justify-center bg-gray-50 rounded-lg text-gray-400">No blogs available</div>
+              )}
             </div>
             <div className='flex flex-col gap-6  justify-between'>
               {smallPosts.map((post) => (
                 <article key={post.id} className='flex gap-4 group cursor-pointer ' onClick={() => navigate({ to: '/blogs/$blogId', params: { blogId: String(post.id) } })}>
-                  <img src={post.image} alt={post.title} className='w-36 lg:w-46 h-35 object-cover rounded-lg  group-hover:scale-101 transition-all' />
+                  <img src={post.imageUrl || 'https://via.placeholder.co/150'} alt={post.title} className='w-36 lg:w-46 h-35 object-cover rounded-lg  group-hover:scale-101 transition-all' />
                   <div className='flex flex-col justify-between'>
                     <h2 className='font-bold text-lg line-clamp-2 group-hover:underline'>{post.title}</h2>
                     <p className='text-sm text-gray-600 line-clamp-2'>{post.description}</p>
-                    <p className='flex items-center text-slate-500 text-xs gap-2'><CalendarRange size={15} />October, 15, 2022</p>
+                    <p className='flex items-center text-slate-500 text-xs gap-2'><CalendarRange size={15} />{new Date(post.createdAt).toLocaleDateString()}</p>
                   </div>
                 </article>
               ))}
             </div>
           </div>
           <div className='flex justify-center mt-5'>
-            <Button type='button' size={"xl"} className='mt-2 bg-white rounded-full border-2 border-primary text-primary hover:text-white cursor-pointer'>Go To Blogs <span className='rounded-full p-2 bg-primary'><ArrowUpRight className='stroke-white' /></span></Button>
+            <Button 
+            type='button' 
+            size={"xl"}  onClick={()=> navigate({ to: '/blogs' })}
+            className='mt-2 bg-white rounded-full border-2 border-primary text-primary hover:text-white cursor-pointer'>Go To Blogs <span className='rounded-full p-2 bg-primary'><ArrowUpRight className='stroke-white' /></span></Button>
           </div>
 
 

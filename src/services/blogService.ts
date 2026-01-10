@@ -12,6 +12,7 @@ export const getBlogsFromFirestore = async () => {
       {
         id: doc.id,
         title: doc.data().title,
+        description: doc.data().description,
         body: doc.data().body,
         createdAt: doc.data().createdAt,
         imageUrl: doc.data().imageUrl,
