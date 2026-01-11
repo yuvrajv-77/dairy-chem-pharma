@@ -99,15 +99,21 @@ function ProductsIndexPage() {
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10'>
                     {filteredProducts.map((product) => (
                         <div key={product.id} className='bg-secondary shadow-sm hover:shadow-md transition-shadow rounded-lg overflow-hidden cursor-pointer ' onClick={() => navigate({ to: '/products/$productId', params: { productId: String(product.id) } })}>
-                            <div className='h-50  rounded-md mb-2 flex items-center justify-center'>
+                            <div className='h-50 rounded-md mb-2 flex items-center justify-center'>
                                 <img className='h-full object-cover' src={product.imageUrl} alt="" />
                             </div>
                             <div className='p-4 space-y-3'>
                                 <h2 className='text-xl font-bold'>{product.name}</h2>
-                                <p className='text-xs text-gray-500  uppercase tracking-wide'>{product.category}</p>
+                                <p className='text-xs text-gray-500 uppercase tracking-wide'>{product.category}</p>
                                 <p className='text-sm text-gray-600 line-clamp-2'>{product.description}</p>
                                 <div className='flex justify-between items-center'>
-                                    <Button className=''>Inquire Now</Button>
+                                    <Button className='' onClick={(e) => {
+                                        e.stopPropagation()
+                                        const phoneNumber = '919876543210' // Replace with your WhatsApp number
+                                        const message = `Hello, I am interested in ${product.name}`
+                                        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+                                        window.open(url, '_blank')
+                                    }}>Enquire Now</Button>
                                     <Button variant={'secondary'} className=''>View Details</Button>
                                 </div>
                             </div>

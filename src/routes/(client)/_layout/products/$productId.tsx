@@ -58,12 +58,19 @@ function ProductDetailPage() {
         { id: 'specifications', label: 'Specifications', hasData: productData.specifications?.length > 0 },
     ];
 
+    const handleWhatsAppEnquiry = () => {
+        const phoneNumber = '919876543210' // Replace with your WhatsApp number
+        const message = `Hello, I am interested in ${productData.name}`
+        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+        window.open(url, '_blank')
+    }
+
     return (
         <main>
             <section className='relative flex-1 flex justify-center items-center  h-60 lg:h-90'>
                 <div className='absolute inset-0 bg-[url(https://www.cpduk.co.uk/sites/default/files/news-imported/cpd-benefits-digital-transformation-machinery-cambashi.jpg)] bg-cover bg-center brightness-35' />
                 <div className='relative flex items-center justify-center flex-col text-white'>
-                    <h1 className='font-extrabold lg:text-5xl text-2xl '>Our Product</h1>
+                    <h1 className='font-extrabold lg:text-5xl text-2xl'>Our Product</h1>
                     <Breadcrumb className='mt-2 '>
                         <BreadcrumbList>
                             <BreadcrumbItem>
@@ -97,8 +104,8 @@ function ProductDetailPage() {
                             <p className='text-secondary-foreground text-sm text-justify'>{productData.description}</p>
                         </div>
                         <div className='flex items-center gap-3'>
-                            <Button className='flex-1' size={'xl'}>Chat on WhatsApp</Button>
-                            <Button className='flex-1' size={'xl'} variant={'outline'}><Mail /> I'm Interested</Button>
+                            <Button className='flex-1' size={'xl'} onClick={handleWhatsAppEnquiry}>Chat on WhatsApp</Button>
+                            {/* <Button className='flex-1' size={'xl'} variant={'outline'}><Mail /> I'm Interested</Button> */}
                         </div>
                     </div>
                 </div>

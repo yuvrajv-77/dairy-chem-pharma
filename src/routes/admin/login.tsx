@@ -25,7 +25,7 @@ function RouteComponent() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password)
-      navigate({ to: '/admin' })
+      navigate({ to: '/admin/products' })
     } catch (err: any) {
       if (err.code === 'auth/invalid-credential') {
         setError('Invalid email or password')

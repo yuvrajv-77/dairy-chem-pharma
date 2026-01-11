@@ -1,4 +1,4 @@
-import { Book, Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { Book, Calendar, ExternalLink, Form, Home, Inbox, Search, Settings, ShoppingBag } from "lucide-react"
 
 import {
   Sidebar,
@@ -29,11 +29,15 @@ const items = [
     url: "/admin/products",
     icon: Inbox,
   },
-
     {
       title: "Blogs",
       url: "/admin/blogs",
       icon: Book,
+    },
+    {
+      title: "Contact Forms",
+      url: "/admin/blogs",
+      icon: Form,
     },
 ]
 const handleLogoutClick = async () => {
@@ -59,16 +63,40 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent >
             <SidebarMenu >
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title} >
+              
+                <SidebarMenuItem >
                   <SidebarMenuButton asChild size={"lg"}>
-                    <Link to={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                    <Link to={"/"}>
+                      <Home />
+                      <span>Home</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              ))}
+                <SidebarMenuItem >
+                  <SidebarMenuButton asChild size={"lg"}>
+                    <Link to={"/admin/products"}>
+                      <ShoppingBag />
+                      <span>Products</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem >
+                  <SidebarMenuButton asChild size={"lg"}>
+                    <Link to={"/admin/blogs"}>
+                      <Book />
+                      <span>Blogs</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem >
+                  <SidebarMenuButton asChild size={"lg"}>
+                    <a href="https://formspree.io/forms/xkoowznp/submissions" target="_blank" rel="noopener noreferrer">
+                      <Form />
+                      <span className="flex gap-2 items-center">Contact Forms <ExternalLink size={16}/></span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+           
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
