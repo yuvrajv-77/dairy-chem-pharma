@@ -5,7 +5,7 @@ import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { motion, AnimatePresence } from "motion/react";
 import dairychem from '../data/dairychem.json';
-import logo from '../assets/logo.jpeg'
+import logo from '../assets/logo.jpg'
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -86,7 +86,7 @@ const Navbar = () => {
                                 <div className="flex  items-center justify-between p-4 border-b">
                                     <div className="flex items-center gap-2">
                                         <span className=' p-1'>
-                                            <img src="/logo.jpeg" className='size-10 rounded-sm' alt="" />
+                                            <img src={logo} className='size-10 rounded-sm' alt="" />
                                         </span>
                                         <h1 className='text-lg font-extrabold text-primary'>DairyChem Pharma Machineries</h1>
                                     </div>

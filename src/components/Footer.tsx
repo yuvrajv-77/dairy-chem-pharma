@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import React from 'react'
 import  labprochem from '../data/dairychem.json'
+import logo from '../assets/logo.jpg'
 const Footer = () => {
   return (
       <footer className='bg-[url(/ui_images/footer2.png)] bg-cover bg-center '>
@@ -9,11 +10,11 @@ const Footer = () => {
                     <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-15'>
                         <div className=''>
                             <div className='flex items-center gap-2'>
-                                <span className=' border-primary p-1'>
-                                    <img src="/Brand Logo.png" className='w-15' alt="" />
+                                <span className=' '>
+                                    <img src={logo} className='w-15' alt="" />
                                 </span>
                                 <span>
-                                    <h1 className='text-lg  font-bold text-white'>Dairy Chem Pharma machinery</h1>
+                                    <h1 className='text-lg  font-bold text-white'>Dairy Chem Pharma Machinery</h1>
                                 </span>
                             </div>
                             <p className='text-white mt-10 text-[15px]'>Dairy Chem Pharma is not responsible for, and expressly disclaims all liability for, damages of any kind arising out of use, reference to, or reliance on any information contained within the site. While the information...</p>
@@ -21,20 +22,20 @@ const Footer = () => {
 
                         <div className=' text-white flex flex-col gap-3'>
                             <h2 className='text-lg font-bold mb-4'>Corporate</h2>
-                            <Link to="/" className='text-sm font-bold hover:text-violet-400'>Home</Link>
-                            <Link to="/about" className='text-sm font-bold hover:text-violet-400'>About</Link>
-                            <Link to="/contact" className='text-sm font-bold hover:text-violet-400'>Contact Us</Link>
-                            <Link to="/blogs" className='text-sm font-bold hover:text-violet-400'>Blogs</Link>
+                            <Link to="/" className='text-sm font-bold hover:text-accent'>Home</Link>
+                            <Link to="/about" className='text-sm font-bold hover:text-accent'>About</Link>
+                            <Link to="/contact" className='text-sm font-bold hover:text-accent'>Contact Us</Link>
+                            <Link to="/blogs" className='text-sm font-bold hover:text-accent'>Blogs</Link>
                             
                         </div>
 
                         <div className=' text-white flex flex-col gap-3'>
                             <h2 className='text-lg font-bold mb-4'>Categories</h2>
-                            <Link to="/products" search={{ filter: 'Capsule' }} className='text-sm font-bold hover:text-violet-400'>Capsules</Link>
-                            <Link to="/products" search={{ filter: 'Ointment' }} className='text-sm font-bold hover:text-violet-400'>Ointment</Link>
-                            <Link to="/products" search={{ filter: 'Granulation' }} className='text-sm font-bold hover:text-violet-400'>Granulation</Link>
-                            <Link to="/products" search={{ filter: 'Liquid' }} className='text-sm font-bold hover:text-violet-400'>Liquid</Link>
-                            <Link to="/products" search={{ filter: 'Injectable' }} className='text-sm font-bold hover:text-violet-400'>Injectibles</Link>
+                            <Link to="/products" search={{ filter: 'Capsule' }} className='text-sm font-bold hover:text-accent'>Capsules</Link>
+                            <Link to="/products" search={{ filter: 'Ointment' }} className='text-sm font-bold hover:text-accent'>Ointment</Link>
+                            <Link to="/products" search={{ filter: 'Granulation' }} className='text-sm font-bold hover:text-accent'>Granulation</Link>
+                            <Link to="/products" search={{ filter: 'Liquid' }} className='text-sm font-bold hover:text-accent'>Liquid</Link>
+                            <Link to="/products" search={{ filter: 'Injectable' }} className='text-sm font-bold hover:text-accent'>Injectibles</Link>
                          
                         </div>
                         <div className=' text-white flex flex-col gap-3 md:col-span-3 lg:col-span-1'>
