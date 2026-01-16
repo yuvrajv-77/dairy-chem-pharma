@@ -188,13 +188,13 @@ function AdminProductDetail() {
     
     <div className="flex-1 p-6 space-y-6 max-w-7xl mx-auto">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" asChild>
             <Link to="/admin/products">
               <ArrowLeft className="h-5 w-5" />
             </Link>
           </Button>
-          <h1 className="text-2xl font-bold tracking-tight">
+          <h1 className="text-lg lg:text-2xl font-bold tracking-tight">
             {isNew ? 'Create Product' : 'Edit Product'}
           </h1>
         </div>

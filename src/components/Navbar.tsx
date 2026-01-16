@@ -81,7 +81,7 @@ const Navbar = () => {
                                 animate={{ x: 0 }}
                                 exit={{ x: '-100%' }}
                                 transition={{ type: 'tween', duration: 0.3 }}
-                                className="fixed top-0 left-0 z-50 w-screen h-full bg-white shadow-lg flex flex-col"
+                                className="fixed top-0 left-0 z-50 w-screen h-screen bg-white shadow-lg flex flex-col"
                             >
                                 <div className="flex  items-center justify-between p-4 border-b">
                                     <div className="flex items-center gap-2">
@@ -174,12 +174,17 @@ const Navbar = () => {
                                     </Link>
 
                                     <Link
-                                        to={'/admin'}
+                                        to={'/admin/products'}
                                         className="text-black font-semibold py-2 px-2 rounded hover:bg-accent"
                                         onClick={() => setIsMobileNavOpen(false)}
                                     >
                                         Admin
                                     </Link>
+
+                                    <div className='flex mx-auto  item-center   gap-4 text-[8px] md:text-base'>
+                                        <Button size={'lg'} onClick={() => window.location.href = `tel:${dairychem[0].phone[0]}`}><PhoneCall size={20} />{dairychem[0].phone[0]}</Button>
+                                        <Button onClick={() => { navigate({ to: "/contact" }) }} size={'lg'}><Mail size={20} />Enquire Now</Button>
+                                    </div>
 
                                 </nav>
                             </motion.aside>
@@ -193,8 +198,8 @@ const Navbar = () => {
                             <p>Certificate Name</p>
                         </span> */}
 
-                        <Button size={'lg'}><PhoneCall size={20} />{dairychem[0].phone[0]}</Button>
-                         <Button onClick={()=>{navigate({to:"/contact"})}} size={'lg'}><Mail size={20} />Enquire Now</Button>
+                        <Button size={'lg'} onClick={() => window.location.href = `tel:${dairychem[0].phone[0]}`}><PhoneCall size={20} />{dairychem[0].phone[0]}</Button>
+                        <Button onClick={() => { navigate({ to: "/contact" }) }} size={'lg'}><Mail size={20} />Enquire Now</Button>
                         {/* <a  href={`mailto:${dairychem[0].email[0]}`} >
                             <Button size={'lg'}><Mail size={20} />Enquire Now</Button>
                         </a> */}
@@ -282,7 +287,7 @@ const Navbar = () => {
 
                                 <NavigationMenuItem>
                                     <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                                        <Link to="/admin">admin</Link>
+                                        <Link to="/admin/products">admin</Link>
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
 

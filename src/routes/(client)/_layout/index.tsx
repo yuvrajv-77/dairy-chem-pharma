@@ -120,7 +120,7 @@ function Home() {
               words={herolines}
             />
             <WordRotate
-              className="text-xl lg:text-xl font-semibold px-10 md:px-0  lg:w-150   text-center text-white"
+              className="text-sm lg:text-xl font-semibold px-10 md:px-0  lg:w-150   text-center text-white"
               words={["Providing Durable Equipment with Unmatched Expert Support for All Your Industrial Needs"]}
             />
             {/* <motion.p className="font-bold text-xl md:text-6xl text-center bg-clip-text leading-20  text-white py-4">
