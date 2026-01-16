@@ -73,7 +73,11 @@ const Footer = () => {
                         <span>© 2026</span>
                         <strong>DairyChem Pharma</strong>
                         <span>All Rights Reserved.</span>
-                    </span>
+                    </span> 
+                    <span className='space-x-1'>
+                        <a target='_blank' href="https://gotreats.in/"><strong>Powered By :- </strong></a>
+                        <span>PulseMedia</span>
+                    </span> 
                     <span className='flex items-center gap-6'>
                         <a href={labprochem[0].linkedin} target='_blank'>
                             <img className='w-5 cursor-pointer ' src="https://cdn.brandfetch.io/idJFz6sAsl/theme/dark/id745SkyD0.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="" />

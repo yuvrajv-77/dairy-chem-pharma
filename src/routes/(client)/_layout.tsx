@@ -14,6 +14,8 @@ export const Route = createFileRoute('/(client)/_layout')({
 })
 
 function Layout() {
+  console.log("gotreats.in");
+  
   return (
     <ProductsProvider>
       <BlogsProvider>
