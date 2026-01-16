@@ -22,6 +22,7 @@ const Navbar = () => {
     const navigate = useNavigate();
     const { products } = useProducts();
     const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false)
+    const [searchQuery, setSearchQuery] = React.useState('')
 
     const categories = React.useMemo(() => {
         return [...new Set(products?.map((product: any) => product.category))].filter(Boolean).slice(0, 6)
@@ -297,7 +298,17 @@ const Navbar = () => {
 
                         <div className='relative w-50 md:w-70'>
                             <Search className='absolute left-2 top-1/2 -translate-y-1/2 text-white/80' size={15} />
-                            <Input className='w-full pl-8 h-8 text-xs md:text-base bg-transparent border-white/60 text-white placeholder:text-white/80 rounded-lg' placeholder="Search 30+ Products" />
+                            <Input 
+                                className='w-full pl-8 h-8 text-xs md:text-base bg-transparent border-white/60 text-white placeholder:text-white/80 rounded-lg' 
+                                placeholder="Search 30+ Products" 
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        navigate({ to: '/products', search: { filter: 'All', q: searchQuery } })
+                                    }
+                                }}
+                            />
                         </div>
                         {/* <Link to="/chemicals" className='text-white p-2 hover:bg-white rounded-lg hover:text-black cursor-pointer'><Search size={20} /></Link> */}
                     </div>

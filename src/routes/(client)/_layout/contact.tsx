@@ -218,7 +218,7 @@ function Contact() {
               <Button type="submit">Submit</Button>
             </form>
           </div>
-          <div className='bg-black p-8 rounded-2xl text-white'>
+          <div className='bg-primary p-8 rounded-2xl text-white'>
             <h2 className="text-xl font-semibold mb-6">Contact Details</h2>
             <div className="space-y-6 text-lg">
               <div>

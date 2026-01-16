@@ -2,9 +2,11 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Button } from '@/components/ui/button'
 import { useProducts } from '@/contexts/ProductsContext'
 import dairychem from '@/data/dairychem.json';
+import { Input } from '@/components/ui/input'
+import { Search } from 'lucide-react'
 
 import { createFileRoute } from '@tanstack/react-router'
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 
 export const Route = createFileRoute('/(client)/_layout/products/')({
     component: ProductsIndexPage,
@@ -17,6 +19,7 @@ export const Route = createFileRoute('/(client)/_layout/products/')({
     validateSearch: (search: Record<string, unknown>) => {
         return {
             filter: (search.filter as string) || 'All',
+            q: (search.q as string) || '',
         }
     },
 })
@@ -45,15 +48,26 @@ const categories = [
  * @returns {JSX.Element} The products index page.
  */
 function ProductsIndexPage() {
-    const { filter } = Route.useSearch()
+    const { filter, q } = Route.useSearch()
     const navigate = Route.useNavigate()
     const { products } = useProducts()
+    const [searchQuery, setSearchQuery] = useState(q || '')
+
+    useEffect(() => {
+        setSearchQuery(q || '')
+    }, [q])
 
     const filteredProducts = useMemo(() => {
-        return filter === 'All'
+        let result = filter === 'All'
             ? products
             : products.filter((product) => product.category === filter)
-    }, [filter, products])
+
+        if (q) {
+            const lowerQ = q.toLowerCase()
+            result = result.filter((product) => product.name.toLowerCase().includes(lowerQ) || product.description.toLowerCase().includes(lowerQ))
+        }
+        return result
+    }, [filter, q, products])
 
     return (
         <main>
@@ -80,14 +94,26 @@ function ProductsIndexPage() {
                 <div className=''>
                     <span className='text-center space-y-3'>
                         <h1 className='text-2xl lg:text-4xl font-extrabold'>Our Machinery and Services</h1>
-                        <p className='text-sm text-gray-500'>Innovative and Reliable Equipment</p>
+                        {/* <p className='text-sm text-gray-500'>Innovative and Reliable Equipment</p> */}
                     </span>
+                </div>
+                <div className="relative max-w-md mx-auto mt-8">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                    <Input
+                        className="pl-10"
+                        placeholder="Search products..."
+                        value={searchQuery}
+                        onChange={(e) => {
+                            setSearchQuery(e.target.value)
+                            navigate({ search: (prev) => ({ ...prev, filter: 'All', q: e.target.value }), replace: true })
+                        }}
+                    />
                 </div>
                 <div className='flex flex-row gap-4 mt-5 overflow-x-auto pb-2'>
                     {categories.map((category) => (
                         <button
                             key={category}
-                            onClick={() => navigate({ search: { filter: category } })}
+                            onClick={() => navigate({ search: { filter: category, q } })}
                             className={`py-2 px-4 rounded-full text-sm font-bold whitespace-nowrap transition-colors ${filter === category
                                 ? 'bg-black text-white'
                                 : 'bg-accent hover:bg-accent/80'
