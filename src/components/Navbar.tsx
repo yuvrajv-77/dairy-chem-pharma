@@ -123,6 +123,13 @@ const Navbar = () => {
                                     >
                                         About
                                     </Link>
+                                    <Link
+                                        to={'/search'}
+                                        className="text- font-semibold py-2 px-2 rounded hover:bg-accent"
+                                        onClick={() => setIsMobileNavOpen(false)}
+                                    >
+                                        Search
+                                    </Link>
 
                                     <Accordion type="single" className='' collapsible>
                                         <AccordionItem value="item-1" className='border-none'>
