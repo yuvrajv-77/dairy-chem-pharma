@@ -187,7 +187,8 @@ function Home() {
           </div>
           <div className='flex flex-col gap-5 justify-between items-center md:items-start text-white'>
             <h1 className='text-2xl  lg:text-3xl font-black'>About Us</h1>
-            <p className='text-justify'>At Dairychem Pharma Machineries, we believe that reliable machinery is the backbone of quality pharmaceutical production. Founded with a commitment to precision, performance, and long-term partnerships, we specialize in designing and manufacturing high-quality pharmaceutical and allied process equipment that meets global industry standards. </p>
+            <p className='text-justify'>Dairychem Pharma Machineries is a reliable manufacturer and supplier of pharmaceutical and chemical processing machinery, serving clients across India and abroad. We are dedicated to supporting the modern manufacturing requirements of pharmaceutical and chemical industries by delivering efficient, durable, and precision-engineered equipment that meets international quality expectations.
+</p>
             <Button type='button' size={"xl"} onClick={() => navigate({ to: '/about' })} className='mt-2 bg-white rounded-full hover:bg-accent border-2 border-primary text-primary  cursor-pointer'>Read More <span className='rounded-full p-2 bg-primary'><ArrowUpRight className='stroke-white' /></span></Button>
           </div>
         </div>
