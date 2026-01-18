@@ -1,3 +1,8 @@
+import 'swiper/css'
+import 'swiper/css/autoplay'
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { ImagesSlider } from '@/components/ui/images-slider'
@@ -5,10 +10,11 @@ import { WordRotate } from '@/components/ui/word-rotate'
 import { useBlogs } from '@/contexts/BlogsContext'
 import { useProducts } from '@/contexts/ProductsContext'
 import { createFileRoute } from '@tanstack/react-router'
-import { ArrowRight, ArrowUpRight, CalendarRange, Star } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ArrowUpRight, CalendarRange, Star } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useMemo } from 'react'
-
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, Navigation } from 'swiper/modules'
 
 export const Route = createFileRoute('/(client)/_layout/')({
   component: Home,
@@ -21,13 +27,22 @@ export const Route = createFileRoute('/(client)/_layout/')({
 //   "/ui_images/grid-bg.jpg",
 //   "/ui_images/grid-chem.jpg",
 //   "/ui_images/bannermin1.jpg",
- 
+
 // ];
 const images = [
   "/ui_images/slide1.jpeg",
   "/ui_images/slide2.jpeg",
   "/ui_images/slide3.jpeg",
 ];
+
+const industryImages = [
+  "/ui_images/hero1.jpg",
+  "/ui_images/hero2.webp",
+  "/ui_images/about.jpeg",
+  "/ui_images/slide1.jpeg",
+  "/ui_images/slide2.jpeg",
+  "/ui_images/slide3.jpeg",
+]
 
 // const herolines = [
 //   "HEAVY MACHINERY SOLUTIONS FOR EVERY INDUSTRY",
@@ -90,7 +105,7 @@ function Home() {
   const { products } = useProducts()
   const { blogs } = useBlogs();
   console.log(blogs);
-  
+
 
   // const filteredProducts = useMemo(() => {
   //   return filter === 'All'
@@ -140,17 +155,34 @@ function Home() {
         </ImagesSlider>
       </section>
 
-      <section>
+
+
+      <section className=' '>
+        <div className='container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10  px-4 lg:px-50 py-10 lg:py-20'>
+          <div className='grid grid-cols-2 grid-rows-2  gap-4'>
+            <img src="/ui_images/about.jpeg" alt="" className='row-span-2 h-60 md:h-90 w-full object-cover rounded-lg' />
+            <img src="/ui_images/hero1.jpg" alt="" className='h-full w-full object-cover rounded-lg' />
+            <img src="/ui_images/hero2.webp" alt="" className='h-full w-full object-cover rounded-lg' />
+          </div>
+          <div className='flex flex-col gap-5 justify-between items-center md:items-start '>
+            <h1 className='text-2xl  lg:text-3xl font-black'>About Us</h1>
+            <p className='text-justify text-xl'>Dairychem Pharma Machineries is a reliable manufacturer and supplier of pharmaceutical and chemical processing machinery, serving clients across India and abroad. We are dedicated to supporting the modern manufacturing requirements of pharmaceutical and chemical industries by delivering efficient, durable, and precision-engineered equipment that meets international quality expectations.</p>
+            <Button type='button' size={"xl"} onClick={() => navigate({ to: '/about' })} className='mt-2 bg-white rounded-full hover:bg-accent border-2 border-primary text-primary  cursor-pointer'>Read More <span className='rounded-full p-2 bg-primary'><ArrowUpRight className='stroke-white' /></span></Button>
+          </div>
+        </div>
+      </section>
+
+      <section className='bg-primary'>
         <div className='container mx-auto  px-4 lg:px-50 py-10 lg:py-10'>
           <div className=''>
             <span className='text-center space-y-3'>
-              <h1 className='text-2xl lg:text-4xl font-extrabold'>Our Machinery and Services</h1>
-              <p className='text-sm text-gray-500'>Innovative and Reliable Equipment</p>
+              <h1 className='text-2xl text-white lg:text-4xl font-extrabold'>Our Machinery and Services</h1>
+              <p className='text-sm text-gray-200'>Innovative and Reliable Equipment</p>
             </span>
           </div>
 
 
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10'>
+          {/* <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10'>
             {products.map((product) => (
               <div key={product.id} className='bg-secondary shadow-sm hover:shadow-md transition-shadow rounded-lg overflow-hidden cursor-pointer ' onClick={() => navigate({ to: '/products/$productId', params: { productId: String(product.id) } })}>
                 <div className='h-50  rounded-md mb-2 flex items-center justify-center'>
@@ -167,29 +199,121 @@ function Home() {
                 </div>
               </div>
             ))}
+          </div> */}
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10  '>
+            <div className='flex gap-3 items-center flex-col bg-accent p-5 rounded-xl'>
+              <h3 className='text-xl font-bold'>API & Bulk Drugs</h3>
+              <img src="https://www.synovaticindia.in/images/api-and-bulk-drugs.png" alt="" />
+              <Button onClick={() => navigate({ to: '/products', search: { filter: 'API' } })}
+                className='w-full'>View All <ArrowRight className='' /></Button>
+            </div>
+            <div className='flex gap-3 items-center flex-col bg-pink-100 p-5 rounded-xl'>
+              <h3 className='text-xl font-bold'>Capsule Section</h3>
+              <img src="https://www.synovaticindia.in/images/tablet-section.png" alt="" />
+              <Button onClick={() => navigate({ to: '/products', search: { filter: 'Capsule' } })}
+                className='w-full'>View All <ArrowRight className='' /></Button>
+            </div>
+            <div className='flex gap-3 items-center flex-col bg-blue-100 p-5 rounded-xl'>
+              <h3 className='text-xl font-bold'>Ointment Section</h3>
+              <img src="https://www.synovaticindia.in/images/ointment-and-liquid-section-1.png" alt="" />
+              <Button onClick={() => navigate({ to: '/products', search: { filter: 'Ointment' } })}
+                className='w-full'>View All <ArrowRight className='' /></Button>
+            </div>
           </div>
           <div className='flex items-center justify-center mt-5'>
             <Button
               type='button'
-              size={"xl"} onClick={() => navigate({ to: '/products', search: { filter: 'All' } })}
-              className='mt-2 bg-white rounded-full border-2 border-primary text-primary hover:text-white  cursor-pointer'>Show All Products <span className='rounded-full p-2 bg-primary'><ArrowUpRight className='stroke-white' /></span></Button>
+              size={"xl"}
+              onClick={() => navigate({ to: '/products', search: { filter: 'All' } })}
+              className='mt-2 bg-white rounded-full hover:bg-accent border-2 border-primary text-primary  cursor-pointer'>Browse All <span className='rounded-full p-2 bg-primary'><ArrowUpRight className='stroke-white' /></span></Button>
           </div>
 
         </div>
       </section>
 
-      <section className='bg-primary '>
-        <div className='container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10  px-4 lg:px-50 py-10 lg:py-20'>
-          <div className='grid grid-cols-2 grid-rows-2  gap-4'>
-            <img src="/ui_images/about.jpeg" alt="" className='row-span-2 h-60 md:h-90 w-full object-cover rounded-lg' />
-            <img src="/ui_images/hero1.jpg" alt="" className='h-full w-full object-cover rounded-lg' />
-            <img src="/ui_images/hero2.webp" alt="" className='h-full w-full object-cover rounded-lg' />
-          </div>
-          <div className='flex flex-col gap-5 justify-between items-center md:items-start text-white'>
-            <h1 className='text-2xl  lg:text-3xl font-black'>About Us</h1>
-            <p className='text-justify'>Dairychem Pharma Machineries is a reliable manufacturer and supplier of pharmaceutical and chemical processing machinery, serving clients across India and abroad. We are dedicated to supporting the modern manufacturing requirements of pharmaceutical and chemical industries by delivering efficient, durable, and precision-engineered equipment that meets international quality expectations.
-</p>
-            <Button type='button' size={"xl"} onClick={() => navigate({ to: '/about' })} className='mt-2 bg-white rounded-full hover:bg-accent border-2 border-primary text-primary  cursor-pointer'>Read More <span className='rounded-full p-2 bg-primary'><ArrowUpRight className='stroke-white' /></span></Button>
+      <section className=' bg-cover bg-center  py-20 md: relative'>
+        {/* <div className="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-none" /> */}
+        <div className='relative max-w-6xl mx-auto px-5 md:px-10 lg:px-0'>
+          <span className='text-center space-y-3'>
+            <h1 className='text-2xl  lg:text-4xl font-extrabold'>Our Industry Presence</h1>
+          </span>
+
+          <div className='mt-10 relative'>
+            <Swiper
+              modules={[Autoplay, Navigation]}
+              spaceBetween={5}
+              slidesPerView={1}
+              loop={true}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              navigation={{
+                nextEl: '.custom-next',
+                prevEl: '.custom-prev',
+              }}
+              breakpoints={{
+                640: { slidesPerView: 1 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 },
+              }}
+              className="w-full"
+            >
+
+              <SwiperSlide className=''>
+                <div className="w-full relative group h-60 md:size-70 rounded-xl overflow-hidden">
+                  <img src="https://www.synovaticindia.in/images/industry/products3.png" alt={`Industry `} className="w-full h-full object-cover hover:scale-110 group-hover:brightness-50 transition-all duration-500" />
+                  <p className='absolute w-full text-center bottom-0 p-3 bg-accent/80 font-bold'>Pharmaceutical</p>
+                  <span className='absolute top-1/2 left-1/2 bg-white rounded-full group-hover:flex  hidden items-center justify-center -translate-x-1/2 z-10 -translate-y-1/2 p-3 '>
+                    <img src="https://www.synovaticindia.in/images/pharmaceutical-icon.svg" className='size-10 ' alt="" />
+                  </span>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide className=''>
+                <div className="w-full relative group h-60 md:size-70 rounded-xl overflow-hidden">
+                  <img src="https://www.synovaticindia.in/images/industry/checmicals.png" alt={`Industry `} className="w-full h-full object-cover hover:scale-110 group-hover:brightness-50 transition-all duration-500" />
+                  <p className='absolute w-full text-center bottom-0 p-3 bg-accent/80 font-bold'>Chemicals</p>
+                  <span className='absolute top-1/2 left-1/2 bg-white rounded-full group-hover:flex  hidden items-center justify-center -translate-x-1/2 z-10 -translate-y-1/2 p-3 '>
+                    <img src="https://www.synovaticindia.in/images/checmicals-icon.svg" className='size-10 ' alt="" />
+                  </span>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide className=''>
+                <div className="w-full relative group h-60 md:size-70 rounded-xl overflow-hidden">
+                  <img src="https://www.synovaticindia.in/images/industry/food.png" alt={`Industry `} className="w-full h-full object-cover hover:scale-110 group-hover:brightness-50 transition-all duration-500" />
+                  <p className='absolute w-full text-center bottom-0 p-3 bg-accent/80 font-bold'>Foods & Beverages</p>
+                  <span className='absolute top-1/2 left-1/2 bg-white rounded-full group-hover:flex  hidden items-center justify-center -translate-x-1/2 z-10 -translate-y-1/2 p-3 '>
+                    <img src="https://www.synovaticindia.in/images/food-icon.svg" className='size-10 ' alt="" />
+                  </span>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide className=''>
+                <div className="w-full relative group h-60 md:size-70 rounded-xl overflow-hidden">
+                  <img src="https://www.synovaticindia.in/images/industry/pesticides.jpg" alt={`Industry `} className="w-full h-full object-cover hover:scale-110 group-hover:brightness-50 transition-all duration-500" />
+                  <p className='absolute w-full text-center bottom-0 p-3 bg-accent/80 font-bold'>Pesticides</p>
+                  <span className='absolute top-1/2 left-1/2 bg-white rounded-full group-hover:flex  hidden items-center justify-center -translate-x-1/2 z-10 -translate-y-1/2 p-3 '>
+                    <img src="https://www.synovaticindia.in/images/pesticides-icon.svg" className='size-10 ' alt="" />
+                  </span>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide className=''>
+                <div className="w-full relative group h-60 md:size-70 rounded-xl overflow-hidden">
+                  <img src="https://www.synovaticindia.in/images/industry/products3.png" alt={`Industry `} className="w-full h-full object-cover hover:scale-110 group-hover:brightness-50 transition-all duration-500" />
+                  <p className='https://www.synovaticindia.in/images/industry/cosmetic.jpg'>Cosmetics</p>
+                  <span className='absolute top-1/2 left-1/2 bg-white rounded-full group-hover:flex  hidden items-center justify-center -translate-x-1/2 z-10 -translate-y-1/2 p-3 '>
+                    <img src="https://www.synovaticindia.in/images/pharmaceutical-icon.svg" className='size-10 ' alt="" />
+                  </span>
+                </div>
+              </SwiperSlide>
+
+
+            </Swiper>
+            <button className="custom-prev absolute border -left-3 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-primary hover:text-white transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <button className="custom-next absolute  border -right-3 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-primary hover:text-white transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+              <ArrowRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </section>
@@ -268,10 +392,10 @@ function Home() {
             </div>
           </div>
           <div className='flex justify-center mt-5'>
-            <Button 
-            type='button' 
-            size={"xl"}  onClick={()=> navigate({ to: '/blogs' })}
-            className='mt-2 bg-white rounded-full border-2 border-primary text-primary hover:text-white cursor-pointer'>Go To Blogs <span className='rounded-full p-2 bg-primary'><ArrowUpRight className='stroke-white' /></span></Button>
+            <Button
+              type='button'
+              size={"xl"} onClick={() => navigate({ to: '/blogs' })}
+              className='mt-2 bg-white rounded-full border-2 border-primary text-primary hover:text-white cursor-pointer'>Go To Blogs <span className='rounded-full p-2 bg-primary'><ArrowUpRight className='stroke-white' /></span></Button>
           </div>
 
 
