@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import { BlogsProvider } from '@/contexts/BlogsContext';
 import { Toaster } from '@/components/ui/sonner';
 import FloatingButtons from '@/components/FloatingButtons';
+import { Analytics } from "@vercel/analytics/react";
 
 export const Route = createFileRoute('/(client)/_layout')({
   component: Layout,
@@ -27,6 +28,7 @@ function Layout() {
         />
         <FloatingButtons/>
         <Toaster />
+        <Analytics />
       </BlogsProvider>
     </ProductsProvider>
   )
