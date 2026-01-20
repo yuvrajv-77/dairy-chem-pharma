@@ -53,7 +53,7 @@ function About() {
           <aside className='w-full lg:w-1/2 grid grid-cols-2 gap-4'>
             <img className='rounded-2xl w-full h-48 object-cover' src="/ui_images/hero2.webp" alt="Machinery 1" />
             <img className='rounded-2xl w-full h-48 object-cover' src="/ui_images/about.jpeg" alt="Machinery 2" />
-            <img className='col-span-2 rounded-2xl w-full h-48 object-cover' src="ui_images/grid-bg.jpg" alt="Machinery 3" />
+            <img className='col-span-2 rounded-2xl w-full h-48 object-cover' src="ui_images/hero1.jpg" alt="Machinery 3" />
           </aside>
           <aside className='w-full lg:w-1/2 flex flex-col justify-center'>
             <h2 className='text-3xl lg:text-4xl font-bold mb-6'>Our Mission & Vision</h2>

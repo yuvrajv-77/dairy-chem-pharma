@@ -10,7 +10,7 @@ export const ImagesSlider = ({
   overlayClassName,
   className,
   autoplay = true,
-  direction = "up",
+  direction = "down",
 }: {
   images: string[];
   children: React.ReactNode;
@@ -129,7 +129,7 @@ export const ImagesSlider = ({
       {areImagesLoaded && children}
       {areImagesLoaded && overlay && (
         <div
-          className={cn("absolute inset-0 bg-black/60 z-40", overlayClassName)}
+          className={cn("absolute inset-0 bg-black/ z-40", overlayClassName)}
         />
       )}
 

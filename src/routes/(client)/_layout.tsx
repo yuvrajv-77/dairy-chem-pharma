@@ -6,8 +6,7 @@ import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 import Footer from '@/components/Footer';
 import { BlogsProvider } from '@/contexts/BlogsContext';
 import { Toaster } from '@/components/ui/sonner';
-
-
+import FloatingButtons from '@/components/FloatingButtons';
 
 export const Route = createFileRoute('/(client)/_layout')({
   component: Layout,
@@ -26,6 +25,7 @@ function Layout() {
           propertyId={import.meta.env.VITE_TAWK_PROPERTY_ID}
           widgetId={import.meta.env.VITE_TAWK_WIDGET_ID}
         />
+        <FloatingButtons/>
         <Toaster />
       </BlogsProvider>
     </ProductsProvider>

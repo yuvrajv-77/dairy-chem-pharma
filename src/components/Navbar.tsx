@@ -57,15 +57,16 @@ const Navbar = () => {
                             <Menu size={23} />
                         </Button>
                         <Link to={"/"} className='flex items-center gap-2'>
-                            <span className='  border-primary p-1'>
+                            <span className=' flex flex-col items-center  border-primary p-1'>
                                 <img src={logo} className='size-12 md:size-16' alt="" />
+                                <p className='text-xs text-muted-foreground font-medium'>Since 2014</p>
                             </span>
                             <span>
                                 <h1 className='text-md md:text-2xl font-black text-primary'>DairyChem Pharma Machineries</h1>
                                 <span className='flex gap-2'>
-                                    <p className='text-[9px] font-semibold  md:text-xs'>Vasai East, Palghar, Maharashtra - 401208 </p>
+                                    <p className='text-[9px] font-semibold  md:text-sm'>Vasai East, Palghar, Maharashtra - 401208 </p>
                                     <p className='text-[9px] font-semibold md:text-xs'>|</p>
-                                    <p className='text-[9px] flex gap-1 font-semibold md:text-xs'>GSTIN: <p className='font-bold'>{dairychem[0].GSTIN}</p></p>
+                                    <p className='text-[9px] flex gap-1 font-semibold md:text-sm'>GSTIN: <p className='font-bold'>{dairychem[0].GSTIN}</p></p>
                                 </span>
                             </span>
                         </Link>
@@ -188,7 +189,7 @@ const Navbar = () => {
                                     </Link>
 
                                     <div className='flex mx-auto  item-center   gap-4 text-[8px] md:text-base'>
-                                        <Button size={'lg'} onClick={() => window.location.href = `tel:${dairychem[0].phone[0]}`}><PhoneCall size={20} />{dairychem[0].phone[0]}</Button>
+                                        <Button size={'lg'} onClick={() => window.location.href = `tel:${dairychem[0].phone[1]}`}><PhoneCall size={20} />{dairychem[0].phone[1]}</Button>
                                         <Button onClick={() => { navigate({ to: "/contact" }) }} size={'lg'}><Mail size={20} />Enquire Now</Button>
                                     </div>
 
@@ -204,7 +205,7 @@ const Navbar = () => {
                             <p>Certificate Name</p>
                         </span> */}
 
-                        <Button size={'lg'} onClick={() => window.location.href = `tel:${dairychem[0].phone[0]}`}><PhoneCall size={20} />{dairychem[0].phone[0]}</Button>
+                        <Button size={'lg'} onClick={() => window.location.href = `tel:${dairychem[0].phone[1]}`}><PhoneCall size={20} />{dairychem[0].phone[1]}</Button>
                         <Button onClick={() => { navigate({ to: "/contact" }) }} size={'lg'}><Mail size={20} />Enquire Now</Button>
                         {/* <a  href={`mailto:${dairychem[0].email[0]}`} >
                             <Button size={'lg'}><Mail size={20} />Enquire Now</Button>
@@ -304,7 +305,7 @@ const Navbar = () => {
                         <div className='relative w-50 md:w-70' onClick={() => {navigate({to: "/search"})}}>
                             <Search className='absolute left-2 top-1/2 -translate-y-1/2 text-white/80' size={15} />
                             <div className='w-full pl-8 h-8 text-xs md:text-base bg-transparent border border-white/60 text-white/80 rounded-lg flex items-center'>
-                                Search 30+ Products
+                                Search Products
                             </div>
                         </div>
                         {/* <Link to="/chemicals" className='text-white p-2 hover:bg-white rounded-lg hover:text-black cursor-pointer'><Search size={20} /></Link> */}

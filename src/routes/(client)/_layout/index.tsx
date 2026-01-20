@@ -119,7 +119,7 @@ function Home() {
   return (
     <main className=''>
       {/* hero section */}
-      <section className={` `}>
+      <section className={`relative `}>
         <ImagesSlider className="h-[400px] md:h-[550px] lg:h-[700px]" images={images}>
           <motion.div
             initial={{
@@ -133,29 +133,28 @@ function Home() {
             transition={{
               duration: 1,
             }}
-            className="z-50 flex flex-col justify-center gap-5 items-center"
+            className=" "
           >
-            <WordRotate
+            {/* <WordRotate
               className="text-2xl lg:text-7xl font-semibold leading-9 font-oswald md:leading-22 px-10 md:px-0  lg:w-240 tracking-wide  text-center text-white"
               words={herolines}
             />
             <WordRotate
               className="text-sm lg:text-xl font-semibold px-10 md:px-0  lg:w-150   text-center text-white"
               words={["Providing Durable Equipment with Unmatched Expert Support for All Your Industrial Needs"]}
-            />
+            /> */}
             {/* <motion.p className="font-bold text-xl md:text-6xl text-center bg-clip-text leading-20  text-white py-4">
                             Driving Innovation with Quality Lab Chemicals <br /> Precision. Purity. Performance.<br /> LABPRO
                         </motion.p> */}
-            <Button
-              type='button'
-              size={"xl"} onClick={() => navigate({ to: '/products', search: { filter: 'All' } })}
-              className='mt-2 rounded-full border-2  cursor-pointer'>Explore Our Products <span className='rounded-full p-2 bg-white'><ArrowUpRight className='stroke-primary' /></span></Button>
 
           </motion.div>
+          <Button
+            type='button'
+            size={"xl"} onClick={() => navigate({ to: '/products', search: { filter: 'All' } })}
+            className='z-50 absolute right-15 bottom-15 rounded-full border-2  cursor-pointer'>Explore Our Products <span className='rounded-full p-2 bg-white'><ArrowUpRight className='stroke-primary' /></span>
+          </Button>
         </ImagesSlider>
       </section>
-
-
 
       <section className=' '>
         <div className='container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10  px-4 lg:px-50 py-10 lg:py-20'>
@@ -269,7 +268,7 @@ function Home() {
                   </span>
                 </div>
               </SwiperSlide>
-              
+
               <SwiperSlide className=''>
                 <div className="w-full relative group h-60 md:size-70 rounded-xl overflow-hidden">
                   <img src="https://www.synovaticindia.in/images/industry/products3.png" alt={`Industry `} className="w-full h-full object-cover hover:scale-110 group-hover:brightness-50 transition-all duration-500" />
@@ -306,7 +305,7 @@ function Home() {
                   </span>
                 </div>
               </SwiperSlide>
-             
+
 
 
             </Swiper>
@@ -320,7 +319,7 @@ function Home() {
         </div>
       </section>
 
-      <section className='bg-gray-50'>
+      {/* <section className='bg-gray-50'>
         <div className='container mx-auto px-4 lg:px-50 py-10 lg:py-20'>
           <div className='text-center mb-12 space-y-3'>
             <h1 className='text-2xl lg:text-4xl font-extrabold'>What Our Client Says</h1>
@@ -357,7 +356,7 @@ function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className=''>
         <div className='container mx-auto px-4 lg:px-50 py-10 lg:py-20'>

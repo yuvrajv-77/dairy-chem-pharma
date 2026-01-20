@@ -103,7 +103,7 @@ function ProductDetailPage() {
                         <div className='space-y-5 '>
                             <h1 className='text-xl lg:text-2xl font-extrabold capitalize'>{productData.name}</h1>
                             <p className='px-3 py-2 bg-accent rounded-xl inline-flex text-xs font-bold'>{productData.category}</p>
-                            <p className='text-secondary-foreground text-sm text-justify'>{productData.description}</p>
+                            <p className='text-secondary-foreground text- text-justify'>{productData.description}</p>
                         </div>
                         <div className='flex items-center gap-3'>
                             <Button className='flex-1' size={'xl'} onClick={handleWhatsAppEnquiry}>Chat on WhatsApp</Button>

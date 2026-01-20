@@ -97,7 +97,7 @@ function Contact() {
               }}
               className="space-y-4"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1  gap-4">
                 <form.Field
                   name="name"
                   children={(field) => {
@@ -144,7 +144,7 @@ function Contact() {
                   }}
                 />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1  gap-4">
                 <form.Field
                   name="phoneNumber"
                   children={(field) => {
@@ -167,7 +167,7 @@ function Contact() {
                     )
                   }}
                 />
-                <form.Field
+                {/* <form.Field
                   name="company"
                   children={(field) => {
                     const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
@@ -187,7 +187,7 @@ function Contact() {
                       </Field>
                     )
                   }}
-                />
+                /> */}
               </div>
               <form.Field
                 name="message"
@@ -195,7 +195,7 @@ function Contact() {
                   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                   return (
                     <Field data-invalid={isInvalid}>
-                      <FieldLabel htmlFor={field.name}>Message</FieldLabel>
+                      <FieldLabel htmlFor={field.name}>Requirement Details</FieldLabel>
                       <InputGroup>
                         <InputGroupTextarea
                           id={field.name}
@@ -203,7 +203,7 @@ function Contact() {
                           value={field.state.value}
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
-                          placeholder="How can we help you?"
+                          placeholder="Type your Requirements here..."
                           rows={3}
                           className="resize-y min-h-30 max-h-60"
                           aria-invalid={isInvalid}
@@ -219,11 +219,11 @@ function Contact() {
             </form>
           </div>
           <div className='bg-primary p-8 rounded-2xl text-white'>
-            <h2 className="text-xl font-semibold mb-6">Contact Details</h2>
+            <h2 className="text-2xl font-semibold mb-6">Contact Details</h2>
             <div className="space-y-6 text-lg">
               <div>
                 <h3 className="font-bold mb-2">Address</h3>
-                <p className="text-gray-200 text-sm">
+                <p className="text-gray-200 text-base">
                   {dairychem[0].address}
                 </p>
               </div>
@@ -231,7 +231,7 @@ function Contact() {
                 <h3 className="font-bold mb-2">Contact</h3>
                 {
                   dairychem[0].phone.map((phone, index) => (
-                    <p key={index} className="flex gap-2 text-sm items-center text-gray-200">
+                    <p key={index} className="flex gap-2 text- items-center text-gray-200">
                       <Phone size={16} /> {phone}<br />
                     </p>
                   ))
@@ -241,7 +241,7 @@ function Contact() {
                 <h3 className="font-bold mb-2">Email Us</h3>
                 {
                   dairychem[0].email.map((email, index) => (
-                    <p key={index} className="flex gap-2 text-sm items-center text-gray-200">
+                    <p key={index} className="flex gap-2 text- items-center text-gray-200">
                       <Mail size={16} /> {email}<br />
                     </p>
                   ))
@@ -249,7 +249,7 @@ function Contact() {
               </div>
               <div>
                 <h3 className="font-bold mb-2">Business Hours</h3>
-                <p className="flex gap-2 text-sm items-center text-gray-200">
+                <p className="flex gap-2 text- items-center text-gray-200">
                   Monday to Saturday <br/>
                   9:00 AM to 6:00 PM<br/>
                   Sunday Closed
