@@ -120,7 +120,7 @@ function Home() {
     <main className=''>
       {/* hero section */}
       <section className={`relative `}>
-        <ImagesSlider className="h-[400px] md:h-[550px] lg:h-[700px]" images={images}>
+        <ImagesSlider className="h-[300px] md:h-[550px] lg:h-[700px]" images={images}>
           <motion.div
             initial={{
               opacity: 0,
@@ -151,7 +151,7 @@ function Home() {
           <Button
             type='button'
             size={"xl"} onClick={() => navigate({ to: '/products', search: { filter: 'All' } })}
-            className='z-50 absolute right-15 bottom-15 rounded-full border-2  cursor-pointer'>Explore Our Products <span className='rounded-full p-2 bg-white'><ArrowUpRight className='stroke-primary' /></span>
+            className='z-50 absolute right-1/2 transform md:translate-0 translate-x-1/2 bottom-1 md:right-15 md:bottom-15 rounded-full border-2  cursor-pointer'>Explore Our Products <span className='rounded-full p-2 bg-white'><ArrowUpRight className='stroke-primary' /></span>
           </Button>
         </ImagesSlider>
       </section>
