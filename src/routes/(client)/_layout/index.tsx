@@ -32,7 +32,7 @@ export const Route = createFileRoute('/(client)/_layout/')({
 const images = [
   "/ui_images/slide1.jpeg",
   "/ui_images/slide2.jpeg",
-  "/ui_images/slide3.jpeg",
+  // "/ui_images/slide3.jpeg",
   "/ui_images/slide4.jpeg",
 ];
 

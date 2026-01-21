@@ -242,7 +242,7 @@ function Contact() {
                 {
                   dairychem[0].email.map((email, index) => (
                     <p key={index} className="flex gap-2 text- items-center text-gray-200">
-                      <Mail size={16} /> {email}<br />
+                      <Mail size={16} /> <a href={`mailto:${email}`}>{email}</a><br />
                     </p>
                   ))
                 }
