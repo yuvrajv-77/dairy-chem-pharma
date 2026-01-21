@@ -236,7 +236,7 @@ function AdminProducts() {
                         variant="ghost"
                         size="icon"
                         className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
-                        onClick={() => product.id && handleDelete(product.id)}
+                        // onClick={() => product.id && handleDelete(product.id)}
                       >
                         <Trash2 className="h-4 w-4" />
                         <span className="sr-only">Delete</span>
