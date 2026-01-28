@@ -194,7 +194,7 @@ const Navbar = () => {
                                     </Link>
 
                                     <div className='flex mx-auto  item-center   gap-4 text-[8px] md:text-base'>
-                                        <Button size={'lg'} onClick={() => window.location.href = `tel:${dairychem[0].phone[1]}`}><PhoneCall size={20} />{dairychem[0].phone[1]}</Button>
+                                        <Button size={'lg'} onClick={() => window.location.href = `tel:${dairychem[0].phone[2]}`}><PhoneCall size={20} />{dairychem[0].phone[2]}</Button>
                                         <Button onClick={() => { navigate({ to: "/contact" }) }} size={'lg'}><Mail size={20} />Enquire Now</Button>
                                     </div>
 
@@ -210,7 +210,7 @@ const Navbar = () => {
                             <p>Certificate Name</p>
                         </span> */}
 
-                        <Button size={'lg'} onClick={() => window.location.href = `tel:${dairychem[0].phone[1]}`}><PhoneCall size={20} />{dairychem[0].phone[1]}</Button>
+                        <Button size={'lg'} onClick={() => window.location.href = `tel:${dairychem[0].phone[2]}`}><PhoneCall size={20} />{dairychem[0].phone[2]}</Button>
                         <Button onClick={() => { navigate({ to: "/contact" }) }} size={'lg'}><Mail size={20} />Enquire Now</Button>
                         {/* <a  href={`mailto:${dairychem[0].email[0]}`} >
                             <Button size={'lg'}><Mail size={20} />Enquire Now</Button>

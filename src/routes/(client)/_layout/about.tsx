@@ -41,7 +41,7 @@ function About() {
             <p className='text-justify md:text-center md:text-lg font-medium'>Dairychem Pharma Machineries is a reliable manufacturer and supplier of pharmaceutical and chemical processing machinery, serving clients across India and abroad. We are dedicated to supporting the modern manufacturing requirements of pharmaceutical and chemical industries by delivering efficient, durable, and precision-engineered equipment that meets international quality expectations.</p>
             <p className='text-justify md:text-center md:text-lg font-medium'>With strong technical expertise and industry experience, we specialize in designing and producing machinery that ensures smooth production processes, consistent performance, and long service life. Every machine is manufactured using premium-grade materials and advanced fabrication techniques, ensuring operational reliability, safety, and compliance with industry standards..</p>
           </div>
-          <img className='rounded-3xl' src="/ui_images/hero2.webp" alt="" />
+          <img className='rounded-3xl' src="ui_images/hero2.webp" alt="" />
           <p className='text-justify md:text-center md:text-lg font-medium'>At Dairychem Pharma Machineries, we provide customized and practical machinery solutions for pharmaceutical, chemical, food, and allied industries. Our equipment is designed to support accurate processing, improved productivity, and stable operations, helping manufacturers meet regulatory requirements and achieve efficient production.</p>
           <p className='text-justify md:text-center md:text-lg font-medium'>We believe in building long-term relationships with our clients through quality products, transparent communication, and dependable after-sales support. From understanding specific process requirements to customization, installation guidance, and technical assistance, our team ensures a smooth and professional experience.</p>
           <p className='text-justify md:text-center md:text-lg font-medium'>Driven by innovation, integrity, and a commitment to continuous improvement, Dairychem Pharma Machineries aims to be a trusted partner for industries seeking reliable, efficient, and future-ready machinery solutions.</p>
@@ -50,8 +50,8 @@ function About() {
 
         <div className='flex flex-col lg:flex-row gap-10 mt-20'>
           <aside className='w-full lg:w-1/2 grid grid-cols-2 gap-4'>
-            <img className='rounded-2xl w-full h-48 object-cover' src="/ui_images/hero2.webp" alt="Machinery 1" />
-            <img className='rounded-2xl w-full h-48 object-cover' src="/ui_images/about.jpeg" alt="Machinery 2" />
+            <img className='rounded-2xl w-full h-48 object-cover' src="ui_images/hero2.webp" alt="Machinery 1" />
+            <img className='rounded-2xl w-full h-48 object-cover' src="ui_images/about.jpeg" alt="Machinery 2" />
             <img className='col-span-2 rounded-2xl w-full h-48 object-cover' src="ui_images/hero1.jpg" alt="Machinery 3" />
           </aside>
           <aside className='w-full lg:w-1/2 flex flex-col justify-center'>

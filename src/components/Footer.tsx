@@ -1,5 +1,4 @@
 import { Link } from '@tanstack/react-router'
-import React from 'react'
 import labprochem from '../data/dairychem.json'
 import logo from '../assets/logo.jpg'
 const Footer = () => {
@@ -17,7 +16,9 @@ const Footer = () => {
                                     <h1 className='text-lg  font-bold text-white'>Dairy Chem Pharma Machineries</h1>
                                 </span>
                             </div>
-                            <p className='text-white mt-5 line-clamp-6 text-[15px]'>Dairychem Pharma Machineries is a reliable manufacturer and supplier of pharmaceutical and chemical processing machinery, serving clients across India and abroad. We are dedicated to supporting the modern manufacturing requirements of pharmaceutical and chemical industries by delivering efficient, durable, and precision-engineered equipment that meets international quality expectations.</p>
+                            <Link to="/about">
+                            <p className='text-white mt-5 line-clamp-7 text-[15px]' >Dairychem Pharma Machineries is a reliable manufacturer and supplier of pharmaceutical and chemical processing machinery, serving clients across India and abroad. We are dedicated to supporting the modern manufacturing requirements of pharmaceutical and chemical industries by delivering efficient, durable, and precision-engineered equipment that meets international quality expectations.</p>
+                            </Link>
                         </div>
 
                         <div className=' text-white flex flex-col gap-3'>
@@ -63,8 +64,6 @@ const Footer = () => {
                                 </p>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>

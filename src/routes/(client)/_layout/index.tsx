@@ -21,29 +21,13 @@ export const Route = createFileRoute('/(client)/_layout/')({
 
 })
 
-// const images = [
-//   "/ui_images/hero1.jpg",
-//   "/ui_images/hero2.webp",
-//   "/ui_images/grid-bg.jpg",
-//   "/ui_images/grid-chem.jpg",
-//   "/ui_images/bannermin1.jpg",
 
-// ];
 const images = [
-  "/ui_images/slide1.jpeg",
-  "/ui_images/slide2.jpeg",
-  // "/ui_images/slide3.jpeg",
-  "/ui_images/slide4.jpeg",
+  "ui_images/slide1.jpeg",
+  "ui_images/slide2.jpeg",
+  "ui_images/slide4.jpeg",
 ];
 
-const industryImages = [
-  "/ui_images/hero1.jpg",
-  "/ui_images/hero2.webp",
-  "/ui_images/about.jpeg",
-  "/ui_images/slide1.jpeg",
-  "/ui_images/slide2.jpeg",
-  "/ui_images/slide3.jpeg",
-]
 
 // const herolines = [
 //   "HEAVY MACHINERY SOLUTIONS FOR EVERY INDUSTRY",
@@ -160,9 +144,9 @@ function Home() {
       <section className=' '>
         <div className='container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10  px-4 lg:px-50 py-10 lg:py-20'>
           <div className='grid grid-cols-2 grid-rows-2  gap-4'>
-            <img src="/ui_images/about.jpeg" alt="" className='row-span-2 h-60 md:h-90 w-full object-cover rounded-lg' />
-            <img src="/ui_images/hero1.jpg" alt="" className='h-full w-full object-cover rounded-lg' />
-            <img src="/ui_images/hero2.webp" alt="" className='h-full w-full object-cover rounded-lg' />
+            <img src="ui_images/about.jpeg" alt="" className='row-span-2 h-60 md:h-90 w-full object-cover rounded-lg' />
+            <img src="ui_images/hero1.jpg" alt="" className='h-full w-full object-cover rounded-lg' />
+            <img src="ui_images/hero2.webp" alt="" className='h-full w-full object-cover rounded-lg' />
           </div>
           <div className='flex flex-col gap-5 justify-between items-center md:items-start '>
             <h1 className='text-2xl  lg:text-3xl font-black'>About Us</h1>

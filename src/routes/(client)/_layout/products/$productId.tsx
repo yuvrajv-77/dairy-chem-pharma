@@ -82,7 +82,7 @@ function ProductDetailPage() {
                                 <BreadcrumbSeparator color='white' />
                             </BreadcrumbItem>
                             <BreadcrumbItem>
-                                <BreadcrumbLink href="/products" className='text-white'>Products</BreadcrumbLink>
+                                <BreadcrumbLink href="/products?filter=All" className='text-white'>Products</BreadcrumbLink>
                             </BreadcrumbItem>
                             <BreadcrumbItem>
                                 <BreadcrumbSeparator color='white' />
