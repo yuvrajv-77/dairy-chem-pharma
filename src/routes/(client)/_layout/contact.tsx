@@ -28,7 +28,6 @@ export const Route = createFileRoute('/(client)/_layout/contact')({
   component: Contact,
 })
 
-
 function Contact() {
   const form = useReactForm({
     defaultValues: {
@@ -40,7 +39,7 @@ function Contact() {
     },
     onSubmit: async ({ value, formApi }) => {
       try {
-        const response = await fetch(`https://formspree.io/f/${import.meta.env.VITE_FORMSPREE_ID}`, {
+        const response = await fetch(`https://formspree.io/f/mykkblba`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

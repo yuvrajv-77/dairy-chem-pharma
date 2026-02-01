@@ -8,16 +8,24 @@ import { getStorage, connectStorageEmulator } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGEBUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSENGING_ID,
-  appId: import.meta.env.VITE_APP_ID,
-  measurementId: import.meta.env.VITE_MEASUREMENT_ID
+  apiKey: "AIzaSyBJlZThhATEhjxJPa7S0jiXn6CY6TbMQFk",
+  authDomain: "fir-test-project-38900.firebaseapp.com",
+  projectId: "fir-test-project-38900",
+  storageBucket: "fir-test-project-38900.firebasestorage.app",
+  messagingSenderId: "522403071879",
+  appId: "1:522403071879:web:84e9c571bdef487bd9f522",
+  measurementId: "G-XXLZXCH0XB"
 }
+// const firebaseConfig = {
+//   apiKey: import.meta.env.VITE_API_KEY,
+//   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+//   projectId: import.meta.env.VITE_PROJECT_ID,
+//   storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+//   messagingSenderId: import.meta.env.VITE_MESSENGING_ID,
+//   appId: import.meta.env.VITE_APP_ID,
+//   measurementId: import.meta.env.VITE_MEASUREMENT_ID
+// }
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

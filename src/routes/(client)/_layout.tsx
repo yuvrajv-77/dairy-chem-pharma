@@ -23,8 +23,8 @@ function Layout() {
         <Outlet />
         <Footer />
         <TawkMessengerReact
-          propertyId={import.meta.env.VITE_TAWK_PROPERTY_ID}
-          widgetId={import.meta.env.VITE_TAWK_WIDGET_ID}
+          propertyId={"69709603f57417197c197e95"}
+          widgetId={"1jffsk01f"}
         />
         <FloatingButtons/>
         <Toaster />
