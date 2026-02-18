@@ -25,6 +25,7 @@ export const Route = createFileRoute('/(client)/_layout/')({
 const images = [
   "ui_images/slide1.jpeg",
   "ui_images/slide2.jpeg",
+  "ui_images/slide3.jpeg",
   "ui_images/slide4.jpeg",
 ];
 
@@ -203,13 +204,31 @@ function Home() {
               <Button onClick={() => navigate({ to: '/products', search: { filter: 'Ointment' } })}
                 className='w-full'>View All <ArrowRight className='' /></Button>
             </div>
+            <div className='flex gap-3 items-center flex-col bg-accent p-5 rounded-xl'>
+              <h3 className='text-xl font-bold'>Granulation Section</h3>
+              <img src="ui_images/granulationSection.jpeg" alt="" />
+              <Button onClick={() => navigate({ to: '/products', search: { filter: 'Granulation' } })}
+                className='w-full'>View All <ArrowRight className='' /></Button>
+            </div>
+            <div className='flex gap-3 items-center flex-col bg-pink-100 p-5 rounded-xl'>
+              <h3 className='text-xl font-bold'>Injectible Section</h3>
+              <img src="ui_images/injectibleSection.jpeg" className='h-full object-cover' alt="" />
+              <Button onClick={() => navigate({ to: '/products', search: { filter: 'Injectibles' } })}
+                className='w-full'>View All <ArrowRight className='' /></Button>
+            </div>
+            <div className='flex gap-3 items-center flex-col bg-blue-100 p-5 rounded-xl'>
+              <h3 className='text-xl font-bold'>Liquid Section</h3>
+              <img src="ui_images/liquidSection.jpeg" alt="" className='h-full object-cover'/>
+              <Button onClick={() => navigate({ to: '/products', search: { filter: 'Liquid' } })}
+                className='w-full'>View All <ArrowRight className='' /></Button>
+            </div>
           </div>
           <div className='flex items-center justify-center mt-5'>
             <Button
               type='button'
               size={"xl"}
               onClick={() => navigate({ to: '/products', search: { filter: 'All' } })}
-              className='mt-2 bg-white rounded-full hover:bg-accent border-2 border-primary text-primary  cursor-pointer'>Browse All <span className='rounded-full p-2 bg-primary'><ArrowUpRight className='stroke-white' /></span></Button>
+              className='mt-2 bg-white rounded-full hover:bg-accent border-2 border-primary text-primary cursor-pointer'>Browse All <span className='rounded-full p-2 bg-primary'><ArrowUpRight className='stroke-white' /></span></Button>
           </div>
 
         </div>

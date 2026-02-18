@@ -22,7 +22,7 @@ const FloatingButtons = () => {
     return (
 
         <span className='fixed flex flex-col items-center bottom-5 left-5 z-50 bg-transparent gap-4 rounded-full transition-all duration-100'>
-            <span onClick={() => window.open(`https://api.whatsapp.com/send?phone=${dairychem[0].phone[1]}&text=Hello%20DairyChem%20Pharma%20Machineries`, "_blank")}
+            <span onClick={() => window.open(`https://api.whatsapp.com/send?phone=9175775529&text=Hello%20DairyChem%20Pharma%20Machineries`, "_blank")}
                 className=' bg-[#25D366] rounded-full shadow-2xl p-4 cursor-pointer  transition-transform hover:bg-green-300'>
                 <img src="https://cdn.brandfetch.io/id6Zq084G_/theme/light/symbol.svg?c=1dxbfHSJFAPEGdCLU4o5B" className='size-6 lg:size-7' alt="WhatsApp" />
             </span>
