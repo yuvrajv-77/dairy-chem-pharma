@@ -217,50 +217,55 @@ function Contact() {
               <Button type="submit">Submit</Button>
             </form>
           </div>
-          <div className='bg-primary p-8 rounded-2xl text-white'>
-            <h2 className="text-2xl font-semibold mb-6">Contact Details</h2>
-            <div className="space-y-6 text-lg">
-              <div>
-                <h3 className="font-bold mb-2">Address</h3>
-                <p className="text-gray-200 text-base">
-                  {dairychem[0].address}
-                </p>
-              </div>
-              <div>
-                <h3 className="font-bold mb-2">Contact</h3>
-                {
-                  dairychem[0].phone.map((phone, index) => (
-                    <p key={index} className="flex gap-2 text- items-center text-gray-200">
-                      <Phone size={16} /> {phone}<br />
-                    </p>
-                  ))
-                }
-              </div>
-              <div>
-                <h3 className="font-bold mb-2">Email Us</h3>
-                {
-                  dairychem[0].email.map((email, index) => (
-                    <p key={index} className="flex gap-2 text- items-center text-gray-200">
-                      <Mail size={16} /> <a href={`mailto:${email}`}>{email}</a><br />
-                    </p>
-                  ))
-                }
-              </div>
-              <div>
-                <h3 className="font-bold mb-2">Business Hours</h3>
-                <p className="flex gap-2 text- items-center text-gray-200">
-                  Monday to Saturday <br />
-                  9:00 AM to 6:00 PM<br />
-                  Sunday Closed
-                </p>
+          <div>
+            <div className='bg-primary p-8 rounded-2xl text-white'>
+              <h2 className="text-2xl font-semibold mb-6">Contact Details</h2>
+              <div className="space-y-6 text-lg">
+                <div>
+                  <h3 className="font-bold mb-2">Address</h3>
+                  <p className="text-gray-200 text-base">
+                    {dairychem[0].address}
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-bold mb-2">Contact</h3>
+                  {
+                    dairychem[0].phone.map((phone, index) => (
+                      <p key={index} className="flex gap-2 text- items-center text-gray-200">
+                        <Phone size={16} /> {phone}<br />
+                      </p>
+                    ))
+                  }
+                </div>
+                <div>
+                  <h3 className="font-bold mb-2">Email Us</h3>
+                  {
+                    dairychem[0].email.map((email, index) => (
+                      <p key={index} className="flex gap-2 text- items-center text-gray-200">
+                        <Mail size={16} /> <a href={`mailto:${email}`}>{email}</a><br />
+                      </p>
+                    ))
+                  }
+                </div>
+                <div>
+                  <h3 className="font-bold mb-2">Business Hours</h3>
+                  <p className="flex gap-2 text- items-center text-gray-200">
+                    Monday to Saturday <br />
+                    9:00 AM to 6:00 PM<br />
+                    Sunday Closed
+                  </p>
 
+                </div>
               </div>
+            </div>
+            <div className=' my-5 hidden md:block '>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4463.646456665133!2d72.88141183555126!3d19.41299982648735!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7a8b3fcbef85b%3A0x4091d917b72f202!2s2%2C%20Sativali%20Naka%2C%20Golani%20Naka%2C%20East%2C%20Vasai-Virar%2C%20Maharashtra%20401208!5e1!3m2!1sen!2sin!4v1771339164473!5m2!1sen!2sin" width="520" height="450" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div className=' my-5 md:hidden flex justify-center'>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4463.646456665133!2d72.88141183555126!3d19.41299982648735!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7a8b3fcbef85b%3A0x4091d917b72f202!2s2%2C%20Sativali%20Naka%2C%20Golani%20Naka%2C%20East%2C%20Vasai-Virar%2C%20Maharashtra%20401208!5e1!3m2!1sen!2sin!4v1771339164473!5m2!1sen!2sin" width="350" height="450" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
         </div>
-      </div>
-      <div className='flex items-center justify-center my-10 p-5'>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4463.646456665133!2d72.88141183555126!3d19.41299982648735!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7a8b3fcbef85b%3A0x4091d917b72f202!2s2%2C%20Sativali%20Naka%2C%20Golani%20Naka%2C%20East%2C%20Vasai-Virar%2C%20Maharashtra%20401208!5e1!3m2!1sen!2sin!4v1771339164473!5m2!1sen!2sin" width="600" height="450" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </main>
   )
