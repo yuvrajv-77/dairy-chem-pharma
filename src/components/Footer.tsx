@@ -17,7 +17,7 @@ const Footer = () => {
                                 </span>
                             </div>
                             <Link to="/about">
-                            <p className='text-white mt-5 line-clamp-7 text-[15px]' >Dairychem Pharma Machineries is a reliable manufacturer and supplier of pharmaceutical and chemical processing machinery, serving clients across India and abroad. We are dedicated to supporting the modern manufacturing requirements of pharmaceutical and chemical industries by delivering efficient, durable, and precision-engineered equipment that meets international quality expectations.</p>
+                            <p className='text-white mt-5 line-clamp-7 text-[15px]'>Dairychem Pharma Machineries is a reliable manufacturer and supplier of pharmaceutical and chemical processing machinery, serving clients across India and abroad. We are dedicated to supporting the modern manufacturing requirements of pharmaceutical and chemical industries by delivering efficient, durable, and precision-engineered equipment that meets international quality expectations.</p>
                             </Link>
                         </div>
 
@@ -28,6 +28,7 @@ const Footer = () => {
                             <Link to="/products" search={{ filter: '' }} className='text-sm font-bold hover:text-accent'>Products</Link>
                             <Link to="/contact" className='text-sm font-bold hover:text-accent'>Contact Us</Link>
                             <Link to="/blogs" className='text-sm font-bold hover:text-accent'>Blogs</Link>
+                            <Link to="/admin/products" className='text-sm font-bold hover:text-accent'>Admin</Link>
                         </div>
 
                         <div className=' text-white flex flex-col gap-3'>

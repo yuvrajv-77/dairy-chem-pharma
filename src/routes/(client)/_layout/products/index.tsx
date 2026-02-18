@@ -60,7 +60,7 @@ function ProductsIndexPage() {
             <section className='relative flex-1 flex justify-center items-center  h-60 lg:h-90'>
                 <div className='absolute inset-0 bg-[url(/ui_images/about.jpeg)] bg-cover bg-center brightness-35' />
                 <div className='relative flex items-center justify-center flex-col text-white'>
-                    <h1 className='font-extrabold lg:text-5xl text-2xl '>Our Products</h1>
+                    <h1 className='font-extrabold lg:text-5xl text-3xl '>Our Products</h1>
                     <Breadcrumb className='mt-2 '>
                         <BreadcrumbList>
                             <BreadcrumbItem>
@@ -104,10 +104,10 @@ function ProductsIndexPage() {
                             <div className='h-50 rounded-md mb-2 flex items-center justify-center'>
                                 <img className='h-full object-cover' src={product.imageUrl} alt="" />
                             </div>
-                            <div className='p-4 space-y-3'>
-                                <h2 className='text-xl font-bold'>{product.name}</h2>
+                            <div className='p-4 gap-3 flex flex-col justify-between'>
+                                <h2 className='text-2xl font-bold'>{product.name}</h2>
                                 <p className='text-xs text-gray-500 uppercase tracking-wide'>{product.category}</p>
-                                <p className='text-sm text-gray-600 line-clamp-2'>{product.description}</p>
+                                <p className='text-base text-gray-600 line-clamp-2'>{product.description}</p>
                                 <div className='flex justify-between items-center'>
                                     <Button className='' onClick={(e) => {
                                         e.stopPropagation()

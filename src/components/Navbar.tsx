@@ -185,13 +185,13 @@ const Navbar = () => {
                                         Contact
                                     </Link>
 
-                                    <Link
+                                    {/* <Link
                                         to={'/admin/products'}
                                         className="text-black font-semibold py-2 px-2 rounded hover:bg-accent"
                                         onClick={() => setIsMobileNavOpen(false)}
                                     >
                                         Admin
-                                    </Link>
+                                    </Link> */}
 
                                     <div className='flex mx-auto  item-center   gap-4 text-[8px] md:text-base'>
                                         <Button size={'lg'} onClick={() => window.location.href = `tel:${dairychem[0].phone[2]}`}><PhoneCall size={20} />{dairychem[0].phone[2]}</Button>
@@ -297,11 +297,11 @@ const Navbar = () => {
                                     </NavigationMenuLink>
                                 </NavigationMenuItem>
 
-                                <NavigationMenuItem>
+                                {/* <NavigationMenuItem>
                                     <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                                         <Link to="/admin/products">Admin</Link>
                                     </NavigationMenuLink>
-                                </NavigationMenuItem>
+                                </NavigationMenuItem> */}
 
 
                             </NavigationMenuList>

@@ -72,7 +72,7 @@ function ProductDetailPage() {
             <section className='relative flex-1 flex justify-center items-center  h-60 lg:h-90'>
                 <div className='absolute inset-0 bg-[url(/ui_images/about.jpeg)] bg-cover bg-center brightness-35' />
                 <div className='relative flex items-center justify-center flex-col text-white'>
-                    <h1 className='font-extrabold lg:text-5xl text-2xl'>Our Product</h1>
+                    <h1 className='font-extrabold lg:text-5xl text-3xl'>Our Product</h1>
                     <Breadcrumb className='mt-2 '>
                         <BreadcrumbList>
                             <BreadcrumbItem>
@@ -101,8 +101,8 @@ function ProductDetailPage() {
                     </div>
                     <div className='flex flex-col justify-between gap-5'>
                         <div className='space-y-5 '>
-                            <h1 className='text-xl lg:text-2xl font-extrabold capitalize'>{productData.name}</h1>
-                            <p className='px-3 py-2 bg-accent rounded-xl inline-flex text-xs font-bold'>{productData.category}</p>
+                            <h1 className='text-2xl lg:text-2xl font-extrabold capitalize'>{productData.name}</h1>
+                            <p className='px-3 py-2 bg-accent rounded-xl inline-flex text- font-bold'>{productData.category}</p>
                             <p className='text-secondary-foreground text- text-justify'>{productData.description}</p>
                         </div>
                         <div className='flex items-center gap-3'>

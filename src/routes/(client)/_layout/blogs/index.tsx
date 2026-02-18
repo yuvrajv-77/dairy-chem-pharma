@@ -29,7 +29,7 @@ function Blogs() {
             <section className='relative flex-1 flex justify-center items-center  h-60 lg:h-90'>
                 <div className='absolute inset-0 bg-[url(/ui_images/about.jpeg)] bg-cover bg-center brightness-35' />
                 <div className='relative flex items-center justify-center flex-col text-white'>
-                    <h1 className='font-extrabold lg:text-5xl text-2xl '>Blogs</h1>
+                    <h1 className='font-extrabold lg:text-5xl text-3xl '>Blogs</h1>
                     <Breadcrumb className='mt-2 '>
                         <BreadcrumbList>
                             <BreadcrumbItem>

@@ -66,7 +66,7 @@ function Contact() {
       <section className='relative flex-1 flex justify-center items-center  h-60 lg:h-90'>
         <div className='absolute inset-0 bg-[url(/ui_images/about.jpeg)] bg-cover bg-center brightness-35' />
         <div className='relative flex items-center justify-center flex-col text-white'>
-          <h1 className='font-extrabold lg:text-5xl text-2xl '>Contact Us</h1>
+          <h1 className='font-extrabold lg:text-5xl text-3xl '>Contact Us</h1>
           <Breadcrumb className='mt-2 '>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -113,7 +113,7 @@ function Contact() {
                           onChange={(e) => field.handleChange(e.target.value)}
                           aria-invalid={isInvalid}
                           placeholder="John Doe"
-                          required autoFocus 
+                          required autoFocus
                         />
                         {isInvalid && <FieldError errors={field.state.meta.errors} />}
                       </Field>
@@ -250,8 +250,8 @@ function Contact() {
               <div>
                 <h3 className="font-bold mb-2">Business Hours</h3>
                 <p className="flex gap-2 text- items-center text-gray-200">
-                  Monday to Saturday <br/>
-                  9:00 AM to 6:00 PM<br/>
+                  Monday to Saturday <br />
+                  9:00 AM to 6:00 PM<br />
                   Sunday Closed
                 </p>
 
@@ -259,6 +259,9 @@ function Contact() {
             </div>
           </div>
         </div>
+      </div>
+      <div className='flex items-center justify-center my-10 p-5'>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4463.646456665133!2d72.88141183555126!3d19.41299982648735!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7a8b3fcbef85b%3A0x4091d917b72f202!2s2%2C%20Sativali%20Naka%2C%20Golani%20Naka%2C%20East%2C%20Vasai-Virar%2C%20Maharashtra%20401208!5e1!3m2!1sen!2sin!4v1771339164473!5m2!1sen!2sin" width="600" height="450" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </main>
   )

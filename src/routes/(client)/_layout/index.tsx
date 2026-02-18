@@ -105,7 +105,7 @@ function Home() {
     <main className=''>
       {/* hero section */}
       <section className={`relative `}>
-        <ImagesSlider className="h-[300px] md:h-[550px] lg:h-[900px]" images={images}>
+        <ImagesSlider className="h-[300px] md:h-[550px] lg:h-[700px]" images={images}>
           <motion.div
             initial={{
               opacity: 0,
@@ -345,54 +345,57 @@ function Home() {
 
       {blogs.length > 0 && (
         <section className=''>
-        <div className='container mx-auto px-4 lg:px-50 py-10 lg:py-20'>
-          <div className='text-center mb-12 space-y-3'>
-            <h1 className='text-2xl lg:text-4xl font-extrabold'>Our Latest News & Updates</h1>
-            <p className='text-sm text-center text-gray-500'>Stay updated with the latest trends, tips, and expert advice in <br />
-              heavy machinery and industrial solutions.</p>
-          </div>
-
-          <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-            <div className=''>
-              {featuredPost ? (
-                <article className='flex flex-col gap-3  cursor-pointer group' onClick={() => navigate({ to: '/blogs/$blogId', params: { blogId: String(featuredPost.id) } })}>
-                  <img src={featuredPost.imageUrl || 'https://via.placeholder.co/600x400'} alt={featuredPost.title} className='w-full h-60 lg:h-80 object-cover rounded-lg group-hover:scale-101 transition-all' />
-                  <h2 className='text-xl md:text-2xl font-extrabold line-clamp-2 group-hover:underline'>{featuredPost.title}</h2>
-                  <p className='text-slate-600 text-sm line-clamp-2 '>{featuredPost.description}</p>
-                  <p className='flex items-center text-slate-500 text-xs gap-2'><CalendarRange size={15} />{new Date(featuredPost.createdAt).toLocaleDateString()}</p>
-                </article>
-              ) : (
-                <div className="h-60 lg:h-80 flex items-center justify-center bg-gray-50 rounded-lg text-gray-400">No blogs available</div>
-              )}
+          <div className='container mx-auto px-4 lg:px-50 py-10 lg:py-20'>
+            <div className='text-center mb-12 space-y-3'>
+              <h1 className='text-2xl lg:text-4xl font-extrabold'>Our Latest News & Updates</h1>
+              <p className='text-sm text-center text-gray-500'>Stay updated with the latest trends, tips, and expert advice in <br />
+                heavy machinery and industrial solutions.</p>
             </div>
-            <div className='flex flex-col gap-6  justify-between'>
-              {smallPosts.map((post) => (
-                <article key={post.id} className='flex gap-4 group cursor-pointer ' onClick={() => navigate({ to: '/blogs/$blogId', params: { blogId: String(post.id) } })}>
-                  <img src={post.imageUrl || 'https://via.placeholder.co/150'} alt={post.title} className='w-36 lg:w-46 h-35 object-cover rounded-lg  group-hover:scale-101 transition-all' />
-                  <div className='flex flex-col justify-between'>
-                    <h2 className='font-bold text-lg line-clamp-2 group-hover:underline'>{post.title}</h2>
-                    <p className='text-sm text-gray-600 line-clamp-2'>{post.description}</p>
-                    <p className='flex items-center text-slate-500 text-xs gap-2'><CalendarRange size={15} />{new Date(post.createdAt).toLocaleDateString()}</p>
-                  </div>
-                </article>
-              ))}
+
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+              <div className=''>
+                {featuredPost ? (
+                  <article className='flex flex-col gap-3  cursor-pointer group' onClick={() => navigate({ to: '/blogs/$blogId', params: { blogId: String(featuredPost.id) } })}>
+                    <img src={featuredPost.imageUrl || 'https://via.placeholder.co/600x400'} alt={featuredPost.title} className='w-full h-60 lg:h-80 object-cover rounded-lg group-hover:scale-101 transition-all' />
+                    <h2 className='text-xl md:text-2xl font-extrabold line-clamp-2 group-hover:underline'>{featuredPost.title}</h2>
+                    <p className='text-slate-600 text-sm line-clamp-2 '>{featuredPost.description}</p>
+                    <p className='flex items-center text-slate-500 text-xs gap-2'><CalendarRange size={15} />{new Date(featuredPost.createdAt).toLocaleDateString()}</p>
+                  </article>
+                ) : (
+                  <div className="h-60 lg:h-80 flex items-center justify-center bg-gray-50 rounded-lg text-gray-400">No blogs available</div>
+                )}
+              </div>
+              <div className='flex flex-col gap-6  justify-between'>
+                {smallPosts.map((post) => (
+                  <article key={post.id} className='flex gap-4 group cursor-pointer ' onClick={() => navigate({ to: '/blogs/$blogId', params: { blogId: String(post.id) } })}>
+                    <img src={post.imageUrl || 'https://via.placeholder.co/150'} alt={post.title} className='w-36 lg:w-46 h-35 object-cover rounded-lg  group-hover:scale-101 transition-all' />
+                    <div className='flex flex-col justify-between'>
+                      <h2 className='font-bold text-lg line-clamp-2 group-hover:underline'>{post.title}</h2>
+                      <p className='text-sm text-gray-600 line-clamp-2'>{post.description}</p>
+                      <p className='flex items-center text-slate-500 text-xs gap-2'><CalendarRange size={15} />{new Date(post.createdAt).toLocaleDateString()}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className='flex justify-center mt-5'>
-            <Button
-              type='button'
-              size={"xl"} onClick={() => navigate({ to: '/blogs' })}
-              className='mt-2 bg-white rounded-full border-2 border-primary text-primary hover:text-white cursor-pointer'>Go To Blogs <span className='rounded-full p-2 bg-primary'><ArrowUpRight className='stroke-white' /></span></Button>
-          </div>
+            <div className='flex justify-center mt-5'>
+              <Button
+                type='button'
+                size={"xl"} onClick={() => navigate({ to: '/blogs' })}
+                className='mt-2 bg-white rounded-full border-2 border-primary text-primary hover:text-white cursor-pointer'>Go To Blogs <span className='rounded-full p-2 bg-primary'><ArrowUpRight className='stroke-white' /></span></Button>
+            </div>
 
 
-        </div>
-      </section>
+          </div>
+        </section>
       )}
 
       <section>
         <div className='container mx-auto px-4 lg:px-50 py-10 lg:py-20 '>
-          <div className='bg-black text-white text-center rounded-2xl gap-6 flex flex-col items-center justify-center px-5 lg:px-50  py-10'>
+          <div>
+            <img src="ui_images/why_choose_us.png" alt="" />
+          </div>
+          {/* <div className='bg-black text-white text-center rounded-2xl gap-6 flex flex-col items-center justify-center px-5 lg:px-50  py-10'>
             <h1 className='font-extrabold text-lg  lg:text-4xl'>
               Unlock Superior Performance
               for Your Machinery Needs
@@ -400,7 +403,7 @@ function Home() {
             <p className='text-xs md:text-sm '>Experience unmatched reliability and durability with our top-tier heavy machinery solutions.<br />
               From construction to industrial projects, we ensure optimal performance and longevity.</p>
             <Button type='button' size={"xl"} onClick={() => navigate({ to: '/contact' })} className='mt-2 rounded-full border-2  cursor-pointer'>Contact Us <span className='rounded-full p-2 bg-white'><ArrowUpRight className='stroke-primary' /></span></Button>
-          </div>
+          </div> */}
         </div>
       </section>
     </main>
